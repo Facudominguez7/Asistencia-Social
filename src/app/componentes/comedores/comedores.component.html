@@ -1,0 +1,253 @@
+<!-- Botones -->
+<section id="actions" class="py-4 mb-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <a
+          href="#"
+          class="btn btn-primary btn-block"
+          data-bs-toggle="modal"
+          data-bs-target="#agregarComedorModal"
+        >
+          <i class="fas fa-plus"></i>Agregar Comedor
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Listado Comedores-->
+<section id="comedores">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <h4>Listado de Comedores</h4>
+          </div>
+          <table class="table table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let comedor of comedores; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ comedor.nombre }}</td>
+                <td>{{ comedor.direccion }}</td>
+                <td>
+                  <a
+                    routerLink="/comedor/editar/{{ comedor.id }}"
+                    class="btn btn-secondary"
+                  >
+                    <i class="fas fa-angle-double-right"></i> Editar
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Tarjeta Lateral -->
+      <div class="col-md-3">
+        <div class="card text-center bg-success text-white mb-3">
+          <div class="card-body">
+            <h3>Total Comedores</h3>
+            <h4 class="display-4">
+              <i class="fas fa-house"></i> {{ comedores?.length }}
+            </h4>
+          </div>
+        </div>
+      </div>
+      <!--Fin Tarjeta Lateral-->
+    </div>
+  </div>
+</section>
+
+<!--Agregar comedor modal-->
+<div class="modal fade" id="agregarComedorModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title">Agregar Comedor</h5>
+        <button class="close" data-bs-dismiss="modal" #botonCerrar>
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <flash-messages></flash-messages>
+
+      <form #comedorForm="ngForm" (ngSubmit)="agregar(comedorForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              name="nombre"
+              class="form-control"
+              #nombre="ngModel"
+              [(ngModel)]="comedor.nombre"
+              [ngClass]="{ 'is-invalid': nombre.errors && nombre.touched }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!nombre.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Nombre requerido
+            </div>
+            <div
+              [hidden]="!nombre.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe conrener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input
+              type="text"
+              name="direccion"
+              class="form-control"
+              #direccion="ngModel"
+              [(ngModel)]="comedor.direccion"
+              [ngClass]="{
+                'is-invalid': direccion.errors && direccion.touched
+              }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!direccion.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Direccion requerida
+            </div>
+            <div
+              [hidden]="!direccion.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe contener almenos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nombreRes">Nombre de Responsable</label>
+            <input
+              type="text"
+              name="nombreRes"
+              class="form-control"
+              #nombreRes="ngModel"
+              [(ngModel)]="comedor.nombreRes"
+              [ngClass]="{ 'is-invalid': nombreRes.errors && nombreRes.touched }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!nombreRes.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Nombre de Responsable requerido
+            </div>
+            <div
+              [hidden]="!nombreRes.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe conrener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dni">DNI del responsable</label>
+            <input
+              type="text"
+              name="dni"
+              class="form-control"
+              #dni="ngModel"
+              [(ngModel)]="comedor.dni"
+              [ngClass]="{ 'is-invalid': dni.errors && dni.touched }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!dni.errors?.['required']"
+              class="invalid-feedback"
+            >
+              DNI del responsable requerido
+            </div>
+            <div
+              [hidden]="!dni.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe conrener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="numTelefono">Número de telefono del responsable</label>
+            <input
+              type="text"
+              name="numTelefono"
+              class="form-control"
+              #numTelefono="ngModel"
+              [(ngModel)]="comedor.numTelefono"
+              [ngClass]="{ 'is-invalid': numTelefono.errors && numTelefono.touched }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!numTelefono.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Numero de telefono del responsable requerido
+            </div>
+            <div
+              [hidden]="!dni.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe contener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="diahorarioCocina">Días y horarios que realiza el almuerzo</label>
+            <input
+              type="text"
+              name="diahorarioCocina"
+              class="form-control"
+              #diahorarioCocina="ngModel"
+              [(ngModel)]="comedor.diahorarioCocina"
+              [ngClass]="{ 'is-invalid': diahorarioCocina.errors && diahorarioCocina.touched }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!diahorarioCocina.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Dia y horario de cocina requerido
+            </div>
+            <div
+              [hidden]="!dni.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe contener al menos 2 caracteres
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -41,11 +41,6 @@ import { MerenderoComponent } from './componentes/merenderos/merenderos.componen
     EditarMerenderoComponent,
     TableroMerenderoComponent,
     MerenderoComponent,
-
-
-
-
-
   ],
   imports: [
     BrowserModule,

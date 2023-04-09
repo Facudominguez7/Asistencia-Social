@@ -19,9 +19,11 @@ export class ComedoresComponent implements OnInit{
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
-    
+
 
   };
+  busqueda: string;
+  comedoresFiltrados: Comedor[];
 
   @ViewChild("comedorForm") comedorForm: NgForm;
   @ViewChild("botonCerrar") botonCerrar: ElementRef;
@@ -35,8 +37,14 @@ export class ComedoresComponent implements OnInit{
     this.comedoresServicio.getComedores().subscribe(
       comedores => {
         this.comedores = comedores;
+        this.comedoresFiltrados = comedores;
       }
-    )
+    );
+  }
+
+  buscar(){
+    this.comedoresServicio.buscarComedorPorNombre(this.busqueda)
+    .subscribe((comedores) => (this.comedoresFiltrados = comedores));
   }
 
   agregar(comedorForm: NgForm){

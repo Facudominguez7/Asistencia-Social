@@ -25,6 +25,18 @@
           <div class="card-header">
             <h4>Listado de Comedores</h4>
           </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input
+                type="text"
+                [(ngModel)]="busqueda"
+                placeholder="Buscar comedores..."
+                style="text-align: center;"
+              />
+              <button (click)="buscar()">Buscar</button>
+            </div>
+          </div>
+
           <table class="table table-striped">
             <thead class="table-dark">
               <tr>
@@ -35,7 +47,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let comedor of comedores; let i = index">
+              <tr *ngFor="let comedor of comedoresFiltrados; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ comedor.nombre }}</td>
                 <td>{{ comedor.direccion }}</td>
@@ -145,7 +157,9 @@
               class="form-control"
               #nombreRes="ngModel"
               [(ngModel)]="comedor.nombreRes"
-              [ngClass]="{ 'is-invalid': nombreRes.errors && nombreRes.touched }"
+              [ngClass]="{
+                'is-invalid': nombreRes.errors && nombreRes.touched
+              }"
               required
               minlength="2"
             />
@@ -175,16 +189,10 @@
               required
               minlength="2"
             />
-            <div
-              [hidden]="!dni.errors?.['required']"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!dni.errors?.['required']" class="invalid-feedback">
               DNI del responsable requerido
             </div>
-            <div
-              [hidden]="!dni.errors?.['minlength']"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
               Debe conrener al menos 2 caracteres
             </div>
           </div>
@@ -197,7 +205,9 @@
               class="form-control"
               #numTelefono="ngModel"
               [(ngModel)]="comedor.numTelefono"
-              [ngClass]="{ 'is-invalid': numTelefono.errors && numTelefono.touched }"
+              [ngClass]="{
+                'is-invalid': numTelefono.errors && numTelefono.touched
+              }"
               required
               minlength="2"
             />
@@ -207,23 +217,25 @@
             >
               Numero de telefono del responsable requerido
             </div>
-            <div
-              [hidden]="!dni.errors?.['minlength']"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
               Debe contener al menos 2 caracteres
             </div>
           </div>
 
           <div class="form-group">
-            <label for="diahorarioCocina">Días y horarios que realiza el almuerzo</label>
+            <label for="diahorarioCocina"
+              >Días y horarios que realiza el almuerzo</label
+            >
             <input
               type="text"
               name="diahorarioCocina"
               class="form-control"
               #diahorarioCocina="ngModel"
               [(ngModel)]="comedor.diahorarioCocina"
-              [ngClass]="{ 'is-invalid': diahorarioCocina.errors && diahorarioCocina.touched }"
+              [ngClass]="{
+                'is-invalid':
+                  diahorarioCocina.errors && diahorarioCocina.touched
+              }"
               required
               minlength="2"
             />
@@ -233,15 +245,10 @@
             >
               Dia y horario de cocina requerido
             </div>
-            <div
-              [hidden]="!dni.errors?.['minlength']"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
               Debe contener al menos 2 caracteres
             </div>
           </div>
-
-
         </div>
 
         <div class="modal-footer">

@@ -3,6 +3,9 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument,
+  QueryFn,
+
+
 } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { Comedor } from '../modelo/comedor.model';
@@ -21,6 +24,14 @@ export class ComdeorServicio {
     this.comedoresColeccion = db.collection('comedores', (ref) =>
       ref.orderBy('nombre', 'asc')
     );
+  }
+  //Método buscar
+  buscarComedorPorNombre(nombre: string): Observable<Comedor[]> {
+    const queryFn: QueryFn = (ref) =>
+      ref.where('nombre', '>=', nombre).where('nombre', '<=', nombre + '\uf8ff');
+    return this.db
+      .collection<Comedor>('comedores', queryFn)
+      .valueChanges({ idField: 'id' });
   }
 
   //Solicitud datos de comedores pidiendo id (regresa objeto de tipo comedor)

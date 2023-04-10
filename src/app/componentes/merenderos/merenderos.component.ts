@@ -25,6 +25,9 @@ export class MerenderoComponent implements OnInit{
 
   };
 
+  busqueda: string;
+  merenderosFiltrados: Merendero[];
+
   @ViewChild("merenderoForm") merenderoForm: NgForm;
   @ViewChild("botonCerrar") botonCerrar: ElementRef;
 
@@ -37,8 +40,14 @@ export class MerenderoComponent implements OnInit{
     this.merenderoServicio.getMerenderos().subscribe(
       merenderos => {
         this.merenderos = merenderos;
+        this.merenderosFiltrados = merenderos;
       }
     )
+  }
+
+  buscar(){
+    this.merenderoServicio.buscarComedorPorNombre(this.busqueda)
+    .subscribe((merenderos) => (this.merenderosFiltrados = merenderos));
   }
 
   agregarMerendero(merenderoForm: NgForm){

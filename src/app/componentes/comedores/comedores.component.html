@@ -16,6 +16,28 @@
   </div>
 </section>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        placeholder="Buscar merenderos..."
+        style="text-align: center"
+        required
+      />
+      &nbsp;
+
+      <button class="btn btn-success btn-block" (click)="buscar()">
+        <i class="fa fa-search"></i>Buscar
+      </button>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+
 <!-- Listado Comedores-->
 <section id="comedores">
   <div class="container">
@@ -25,17 +47,7 @@
           <div class="card-header">
             <h4>Listado de Comedores</h4>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="text"
-                [(ngModel)]="busqueda"
-                placeholder="Buscar comedores..."
-                style="text-align: center;"
-              />
-              <button (click)="buscar()">Buscar</button>
-            </div>
-          </div>
+
 
           <table class="table table-striped">
             <thead class="table-dark">
@@ -57,6 +69,13 @@
                     class="btn btn-secondary"
                   >
                     <i class="fas fa-angle-double-right"></i> Editar
+                  </a>
+                  &nbsp;
+                  <a
+                    routerLink="/comedor/editar/{{ comedor.id }}"
+                    class="btn btn-secondary"
+                  >
+                    <i class="fas fa-angle-double-right"></i> Info
                   </a>
                 </td>
               </tr>

@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument,
+  QueryFn,
 } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
@@ -23,6 +24,15 @@ export class MerenderoServicio {
     this.merenderosColeccion = db.collection('merenderos', (ref) =>
       ref.orderBy('nombre', 'asc')
     );
+  }
+
+  //Método buscar
+  buscarComedorPorNombre(nombre: string): Observable<Merendero[]> {
+    const queryFn: QueryFn = (ref) =>
+      ref.where('nombre', '>=', nombre).where('nombre', '<=', nombre + '\uf8ff');
+    return this.db
+      .collection<Merendero>('merenderos', queryFn)
+      .valueChanges({ idField: 'id' });
   }
 
   //Solicitud datos de merenderos pidiendo id (regresa objeto de tipo comedor)

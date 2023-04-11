@@ -78,6 +78,24 @@ export class ComdeorServicio {
       this.comedorDoc.update(comedor);
   }
 
+  guardarDescripcion(id: string, descripcion: string){
+    console.log('LLamando a guardarDescripciopn() con los siguientes valores:');
+    console.log('id:', id);
+    console.log('descripcion:', descripcion);
+
+    return this.db.collection('comedores').doc(id).set({
+      descripcion: descripcion
+    }, {merge: true})
+    .then(() => {
+      console.log('Descripción actualizada correctamente');
+    })
+    .catch(error => {
+      console.error('Error al actualizar la descripción:', error);
+      throw error;
+    });
+}
+
+
   eliminarComedor(comedor: Comedor){
     this.comedorDoc = this.db.doc(`comedores/${comedor.id}`);
     this.comedorDoc.delete();

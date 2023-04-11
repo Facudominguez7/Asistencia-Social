@@ -1,0 +1,75 @@
+<header id="main-header" class="py-2 bg-success text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><i class="fa-solid fa-circle-info"> </i> Información</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--Botones-->
+<section id="actions" class="py-4 mb-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <a routerLink="/" class="btn btn-light btn-block">
+          <i class="fas fa-arrow-left"></i>Regresar al inicio
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Descripción -->
+
+  <div class="container">
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea
+        class="form-control"
+        name="descripcion"
+        [(ngModel)]="comedor.descripcion"
+      ></textarea>
+      <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+    </div>
+  </div>
+
+
+<section id="comedores">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="card-header">
+            <h4>Información de Comedor</h4>
+          </div>
+
+          <table class="table table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Nombre de responsable</th>
+                <th>DNI del responsable</th>
+                <th>Número de telefono del responsable</th>
+                <th>Días y horarios que realiza el almuerzo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="comedor">
+                <td>{{ comedor.nombre }}</td>
+                <td>{{ comedor.direccion }}</td>
+                <td>{{ comedor.nombreRes }}</td>
+                <td>{{ comedor.dni }}</td>
+                <td>{{ comedor.numTelefono }}</td>
+                <td>{{ comedor.diahorarioCocina }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

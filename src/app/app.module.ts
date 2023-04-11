@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ChangeDetectorRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -27,6 +27,8 @@ import { MerenderoServicio } from './servicios/merendero.service';
 import { EditarMerenderoComponent } from './componentes/editar-merendero/editar-merendero.component';
 import { TableroMerenderoComponent } from './componentes/tablero-merendero/tablero-merendero.component';
 import { MerenderoComponent } from './componentes/merenderos/merenderos.component';
+import { InfoComedorComponent } from './componentes/info-comedor/info-comedor.component';
+import { InfoMerenderoComponent } from './componentes/info-merendero/info-merendero.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { MerenderoComponent } from './componentes/merenderos/merenderos.componen
     EditarMerenderoComponent,
     TableroMerenderoComponent,
     MerenderoComponent,
+    InfoComedorComponent,
+    InfoMerenderoComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +54,9 @@ import { MerenderoComponent } from './componentes/merenderos/merenderos.componen
     AngularFireAuthModule,
     FormsModule,
     FlashMessagesModule.forRoot(),
+
   ],
-  providers: [MerenderoServicio, ComdeorServicio, LoginService, AuthGuard],
+  providers: [MerenderoServicio, ComdeorServicio, LoginService, AuthGuard,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

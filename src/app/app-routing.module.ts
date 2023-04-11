@@ -7,13 +7,17 @@ import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado
 import { TableroComedoresComponent } from './componentes/tablero-comedores/tablero-comedores.component';
 import { TableroMerenderoComponent } from './componentes/tablero-merendero/tablero-merendero.component';
 import { AuthGuard } from './guardianes/auth.guard';
+import { InfoMerenderoComponent } from './componentes/info-merendero/info-merendero.component';
+import { InfoComedorComponent } from './componentes/info-comedor/info-comedor.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path:'', component: TableroComedoresComponent, canActivate: [AuthGuard]},
   {path:'merenderos', component: TableroMerenderoComponent, canActivate: [AuthGuard]},
   {path: 'comedor/editar/:id', component: EditarComedorComponent, canActivate: [AuthGuard]},
+  {path: 'comedor/info/:id', component: InfoComedorComponent, canActivate: [AuthGuard]},
   {path: 'merendero/editar/:id', component: EditarMerenderoComponent, canActivate: [AuthGuard]},
+  {path: 'merendero/info/:id', component: InfoMerenderoComponent, canActivate: [AuthGuard]},
   {path: '**', component: NoEncontradoComponent},
 
 ];

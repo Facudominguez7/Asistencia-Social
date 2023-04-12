@@ -3,16 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Comedor } from 'src/app/modelo/comedor.model';
 import { ComdeorServicio } from 'src/app/servicios/comedor.service';
-import {  ChangeDetectorRef } from '@angular/core';
-
+import { ChangeDetectorRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-info-comedor',
   templateUrl: './info-comedor.component.html',
-  styleUrls: ['./info-comedor.component.css']
+  styleUrls: ['./info-comedor.component.css'],
 })
-export class InfoComedorComponent implements OnInit{
-
+export class InfoComedorComponent implements OnInit {
   comedores?: Comedor[];
   comedor: Comedor = {
     nombre: '',
@@ -22,46 +21,30 @@ export class InfoComedorComponent implements OnInit{
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
-
-
   };
-  id:string;
-  descripcion: string;
+  id: string;
 
 
-
-
-
-
-  constructor(private comedoresServicio: ComdeorServicio,
+  constructor(
+    private comedoresServicio: ComdeorServicio,
     private flashMessages: FlashMessagesService,
     private router: Router,
-    private route: ActivatedRoute){
-
-  }
-
-
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     //recuperar comedor con su respectivo id
-    this.comedoresServicio.getComedor(this.id).subscribe(comedor => {
+    this.comedoresServicio.getComedor(this.id).subscribe((comedor) => {
       this.comedor = comedor;
-      this.descripcion = comedor.descripcion;
-      this.changeDetector.detectChanges();
 
-
-    })
+    });
   }
 
-  guardar(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    console.log('id: ', id);
-    console.log('descripcion:', this.comedor.descripcion);
-    this.comedoresServicio.guardarDescripcion(this.id, this.descripcion)
-      .then(() => alert('Descripción guardada correctamente.'))
-      .catch(error => console.error(error));
+  guardar(comedorForm: NgForm) {
+    comedorForm.value.id = this.id;
+    //modificar el comedor
+    this.comedoresServicio.modificarComedor(comedorForm.value);
+    this.router.navigate(['/']);
   }
 }
-
-

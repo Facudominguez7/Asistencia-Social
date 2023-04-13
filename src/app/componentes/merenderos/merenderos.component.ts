@@ -21,6 +21,7 @@ export class MerenderoComponent implements OnInit{
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
+    ubicacion: '',
 
 
   };

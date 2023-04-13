@@ -20,6 +20,7 @@ export class EditarMerenderoComponent {
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
+    ubicacion: '',
 
 
   };

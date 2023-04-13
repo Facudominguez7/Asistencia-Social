@@ -16,7 +16,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <a routerLink="/" class="btn btn-light btn-block">
+          <a routerLink="/merenderos" class="btn btn-light btn-block">
             <i class="fas fa-arrow-left"></i>Regresar al inicio
           </a>
         </div>
@@ -25,8 +25,16 @@
             <i class="fas fa-check"></i> Guardar Merendero
           </button>
         </div>
-
-
+        <div class="col-md-3">
+          <a
+            [href]="merendero.ubicacion"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Ver ubicacion en google maps
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -48,11 +56,13 @@
                   class="form-control"
                   #descripcion="ngModel"
                   [(ngModel)]="merendero.descripcion"
-                  [ngClass]="{ 'is-invalid': descripcion.errors && descripcion.touched }"
+                  [ngClass]="{
+                    'is-invalid': descripcion.errors && descripcion.touched
+                  }"
                   required
                   minlength="2"
                   style="height: 200px; resize: vertical"
-              ></textarea>
+                ></textarea>
                 <div
                   [hidden]="!descripcion.errors?.['required']"
                   class="invalid-feedback"
@@ -66,17 +76,12 @@
                   Debe conrener al menos 2 caracteres
                 </div>
               </div>
-
-
-
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
 </form>
 
 <section id="merenderos">
@@ -89,12 +94,26 @@
           </div>
 
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><b>Nombre:</b> {{ merendero.nombre }}</li>
-            <li class="list-group-item"><b>Dirección:</b> {{ merendero.direccion }}</li>
-            <li class="list-group-item"><b>Nombre de responsable:</b> {{ merendero.nombreRes }}</li>
-            <li class="list-group-item"><b>DNI del responsable:</b> {{ merendero.dni }}</li>
-            <li class="list-group-item"><b>Número de telefono del responsable:</b> {{ merendero.numTelefono }}</li>
-            <li class="list-group-item"><b>Días y horarios que realiza el almuerzo:</b> {{ merendero.diahorarioCocina }}</li>
+            <li class="list-group-item">
+              <b>Nombre:</b> {{ merendero.nombre }}
+            </li>
+            <li class="list-group-item">
+              <b>Dirección:</b> {{ merendero.direccion }}
+            </li>
+            <li class="list-group-item">
+              <b>Nombre de responsable:</b> {{ merendero.nombreRes }}
+            </li>
+            <li class="list-group-item">
+              <b>DNI del responsable:</b> {{ merendero.dni }}
+            </li>
+            <li class="list-group-item">
+              <b>Número de telefono del responsable:</b>
+              {{ merendero.numTelefono }}
+            </li>
+            <li class="list-group-item">
+              <b>Días y horarios que realiza el almuerzo:</b>
+              {{ merendero.diahorarioCocina }}
+            </li>
           </ul>
         </div>
       </div>

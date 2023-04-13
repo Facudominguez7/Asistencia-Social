@@ -25,8 +25,16 @@
             <i class="fas fa-check"></i> Guardar Comedor
           </button>
         </div>
-
-
+        <div class="col-md-3">
+          <a
+            [href]="comedor.ubicacion"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Ver ubicacion en google maps
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -48,11 +56,13 @@
                   class="form-control"
                   #descripcion="ngModel"
                   [(ngModel)]="comedor.descripcion"
-                  [ngClass]="{ 'is-invalid': descripcion.errors && descripcion.touched }"
+                  [ngClass]="{
+                    'is-invalid': descripcion.errors && descripcion.touched
+                  }"
                   required
                   minlength="2"
                   style="height: 200px; resize: vertical"
-              ></textarea>
+                ></textarea>
                 <div
                   [hidden]="!descripcion.errors?.['required']"
                   class="invalid-feedback"
@@ -66,20 +76,13 @@
                   Debe conrener al menos 2 caracteres
                 </div>
               </div>
-
-
-
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
 </form>
-
-
 
 <section id="comedores">
   <div class="container">
@@ -92,17 +95,25 @@
 
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><b>Nombre:</b> {{ comedor.nombre }}</li>
-            <li class="list-group-item"><b>Dirección:</b> {{ comedor.direccion }}</li>
-            <li class="list-group-item"><b>Nombre de responsable:</b> {{ comedor.nombreRes }}</li>
-            <li class="list-group-item"><b>DNI del responsable:</b> {{ comedor.dni }}</li>
-            <li class="list-group-item"><b>Número de telefono del responsable:</b> {{ comedor.numTelefono }}</li>
-            <li class="list-group-item"><b>Días y horarios que realiza el almuerzo:</b> {{ comedor.diahorarioCocina }}</li>
+            <li class="list-group-item">
+              <b>Dirección:</b> {{ comedor.direccion }}
+            </li>
+            <li class="list-group-item">
+              <b>Nombre de responsable:</b> {{ comedor.nombreRes }}
+            </li>
+            <li class="list-group-item">
+              <b>DNI del responsable:</b> {{ comedor.dni }}
+            </li>
+            <li class="list-group-item">
+              <b>Número de telefono del responsable:</b>
+              {{ comedor.numTelefono }}
+            </li>
+            <li class="list-group-item">
+              <b>Días y horarios que realiza el almuerzo:</b>
+              {{ comedor.diahorarioCocina }}
+            </li>
           </ul>
         </div>
-
-        <a [href]="comedor.ubicacion" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            Ver ubicacion en google maps
-        </a>
       </div>
     </div>
   </div>

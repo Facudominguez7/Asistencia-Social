@@ -21,6 +21,7 @@ export class InfoComedorComponent implements OnInit {
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
+    ubicacion: '',
   };
   id: string;
 

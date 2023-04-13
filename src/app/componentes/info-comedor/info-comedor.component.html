@@ -99,6 +99,10 @@
             <li class="list-group-item"><b>Días y horarios que realiza el almuerzo:</b> {{ comedor.diahorarioCocina }}</li>
           </ul>
         </div>
+
+        <a [href]="comedor.ubicacion" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Ver ubicacion en google maps
+        </a>
       </div>
     </div>
   </div>

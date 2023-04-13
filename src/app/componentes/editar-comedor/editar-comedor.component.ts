@@ -21,6 +21,7 @@ export class EditarComedorComponent implements OnInit {
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
+    ubicacion: '',
 
 
   };

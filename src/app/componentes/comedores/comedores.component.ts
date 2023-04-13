@@ -19,6 +19,7 @@ export class ComedoresComponent implements OnInit{
     dni: '',
     numTelefono: '',
     diahorarioCocina: '',
+    ubicacion: '',
 
 
   };

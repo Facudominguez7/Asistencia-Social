@@ -35,6 +35,15 @@
             Ver ubicacion en google maps
           </a>
         </div>
+        <div class="col-md-3">
+          <button
+            type="button"
+            class="btn btn-success btn-block"
+            (click)="generarPDFNotas()"
+          >
+            <i></i>Generar PDF
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -51,6 +60,7 @@
               <div class="form-group">
                 <label for="descripcion">Agregue notas aquí</label>
                 <textarea
+                  id="info"
                   type="text"
                   name="descripcion"
                   class="form-control"

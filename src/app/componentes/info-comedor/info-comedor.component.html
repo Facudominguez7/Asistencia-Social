@@ -35,11 +35,16 @@
             Ver ubicacion en google maps
           </a>
         </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-success btn-block" (click)="generarPDFNotas()">
+              <i></i>Generar PDF
+            </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="details">
+  <section id="Información Comedor">
     <div class="container">
       <div class="row">
         <div class="col">
@@ -51,6 +56,7 @@
               <div class="form-group">
                 <label for="descripcion">Agregue notas aquí</label>
                 <textarea
+                  id="info"
                   type="text"
                   name="descripcion"
                   class="form-control"
@@ -61,7 +67,7 @@
                   }"
                   required
                   minlength="2"
-                  style="height: 200px; resize: vertical"
+                  style="height: 400px; resize: vertical"
                 ></textarea>
                 <div
                   [hidden]="!descripcion.errors?.['required']"

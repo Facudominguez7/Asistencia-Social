@@ -8,7 +8,7 @@
   </div>
 </header>
 
-<form #comedorForm="ngForm" (ngSubmit)="guardar(comedorForm)">
+<form #comedorForm="ngForm" (ngSubmit)="guardar(comedorForm, $event)">
   <flash-messages></flash-messages>
 
   <!--Botones-->

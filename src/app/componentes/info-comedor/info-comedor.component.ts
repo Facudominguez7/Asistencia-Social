@@ -44,11 +44,12 @@ export class InfoComedorComponent implements OnInit {
     });
   }
 
-  guardar(comedorForm: NgForm) {
+  guardar(comedorForm: NgForm, event: Event) {
+    event.preventDefault();
     comedorForm.value.id = this.id;
     //modificar el comedor
     this.comedoresServicio.modificarComedor(comedorForm.value);
-    this.router.navigate(['/']);
+    
   }
 
   generarPDFNotas() {

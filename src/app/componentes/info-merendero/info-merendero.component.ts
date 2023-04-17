@@ -42,11 +42,12 @@ export class InfoMerenderoComponent {
     });
   }
 
-  guardar(merenderoForm: NgForm) {
+  guardar(merenderoForm: NgForm, event: Event) {
+    event.preventDefault();
     merenderoForm.value.id = this.id;
     //modificar el comedor
     this.merenderosServicio.modificarMerendero(merenderoForm.value);
-    this.router.navigate(['/merenderos']);
+
   }
 
   generarPDFNotas() {

@@ -9,6 +9,7 @@ export interface Comedor{
     diahorarioCocina: string;
     ubicacion: string;
     actividadRealiza: string;
+    insumos: string;
 
 
 

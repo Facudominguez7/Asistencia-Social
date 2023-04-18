@@ -25,6 +25,7 @@ export class InfoComedorComponent implements OnInit {
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
+    insumos: '',
   };
   id: string;
 

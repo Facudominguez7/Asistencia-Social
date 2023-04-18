@@ -21,10 +21,12 @@ export class ComedoresComponent implements OnInit{
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
+    insumos: '',
 
 
   };
   busqueda: string;
+  busquedaDni: string;
   comedoresFiltrados: Comedor[];
 
   @ViewChild("comedorForm") comedorForm: NgForm;
@@ -47,7 +49,7 @@ export class ComedoresComponent implements OnInit{
   buscar(){
     this.comedoresServicio.buscarComedorPorNombre(this.busqueda)
     .subscribe((comedores) => (this.comedoresFiltrados = comedores));
-  }
+}
 
   agregar(comedorForm: NgForm){
 

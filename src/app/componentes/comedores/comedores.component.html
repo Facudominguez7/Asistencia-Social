@@ -63,6 +63,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ comedor.nombre }}</td>
                 <td>{{ comedor.direccion }}</td>
+
                 <td>
                   <a
                     routerLink="/comedor/editar/{{ comedor.id }}"
@@ -299,9 +300,11 @@
             </div>
           </div>
 
+          
+
           <div class="form-group">
             <label for="ubicacion"
-              >Agregue el link correspondiente a la ubicación del Comedor (Formato https://)</label
+              >Agregue el link correspondiente a la ubicación del Comedor / Merendero (Formato https://)</label
             >
             <input
               type="text"

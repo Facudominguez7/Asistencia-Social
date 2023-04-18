@@ -23,6 +23,7 @@ export class EditarComedorComponent implements OnInit {
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
+    insumos: '',
 
 
   };

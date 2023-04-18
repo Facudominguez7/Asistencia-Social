@@ -8,7 +8,7 @@
   </div>
 </header>
 
-<form #comedorForm="ngForm" (ngSubmit)="guardar(comedorForm)">
+<form #comedorForm="ngForm" (ngSubmit)="guardar(comedorForm, $event)">
   <flash-messages></flash-messages>
 
   <!--Botones-->
@@ -20,11 +20,7 @@
             <i class="fas fa-arrow-left"></i>Regresar al inicio
           </a>
         </div>
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-success btn-block">
-            <i class="fas fa-check"></i> Guardar Comedor
-          </button>
-        </div>
+
         <div class="col-md-3">
           <a
             [href]="comedor.ubicacion"
@@ -36,9 +32,54 @@
           </a>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-success btn-block" (click)="generarPDFNotas()">
-              <i></i>Generar PDF
-            </button>
+          <button
+            type="button"
+            class="btn btn-success btn-block"
+            (click)="generarPDFNotas()"
+          >
+            <i></i>Generar PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="comedores">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-15">
+          <div class="card">
+            <div class="card-header">
+              <h4>Información de Comedor</h4>
+            </div>
+
+            <ul class="list-group list-group-flush" id="ul-info">
+              <li class="list-group-item">
+                <b>Actividades que realiza:</b>
+                {{ comedor.actividadRealiza }}
+              </li>
+              <li class="list-group-item">
+                <b>Nombre:</b> {{ comedor.nombre }}
+              </li>
+              <li class="list-group-item">
+                <b>Dirección:</b> {{ comedor.direccion }}
+              </li>
+              <li class="list-group-item">
+                <b>Nombre de responsable:</b> {{ comedor.nombreRes }}
+              </li>
+              <li class="list-group-item">
+                <b>DNI del responsable:</b> {{ comedor.dni }}
+              </li>
+              <li class="list-group-item">
+                <b>Número de telefono del responsable:</b>
+                {{ comedor.numTelefono }}
+              </li>
+              <li class="list-group-item">
+                <b>Días y horarios que realiza el almuerzo:</b>
+                {{ comedor.diahorarioCocina }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -49,7 +90,6 @@
       <div class="row">
         <div class="col">
           <div class="card">
-            
             <div class="card-body">
               <div class="form-group">
                 <label for="descripcion">Agregue notas aquí</label>
@@ -60,26 +100,22 @@
                   class="form-control"
                   #descripcion="ngModel"
                   [(ngModel)]="comedor.descripcion"
-                  [ngClass]="{
-                    'is-invalid': descripcion.errors && descripcion.touched
-                  }"
                   required
                   minlength="2"
                   style="height: 400px; resize: vertical"
                 ></textarea>
                 <div
-                  [hidden]="!descripcion.errors?.['required']"
-                  class="invalid-feedback"
-                >
-                  Nombre requerido
-                </div>
-                <div
                   [hidden]="!descripcion.errors?.['minlength']"
                   class="invalid-feedback"
                 >
-                  Debe conrener al menos 2 caracteres
+                  Debe contener al menos 2 caracteres
                 </div>
               </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <button type="submit" class="btn btn-success btn-block">
+                <i class="fas fa-check"></i> Guardar Comedor
+              </button>
             </div>
           </div>
         </div>
@@ -87,38 +123,3 @@
     </div>
   </section>
 </form>
-
-<section id="comedores">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-15">
-        <div class="card">
-          <div class="card-header">
-            <h4>Información de Comedor</h4>
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><b>Nombre:</b> {{ comedor.nombre }}</li>
-            <li class="list-group-item">
-              <b>Dirección:</b> {{ comedor.direccion }}
-            </li>
-            <li class="list-group-item">
-              <b>Nombre de responsable:</b> {{ comedor.nombreRes }}
-            </li>
-            <li class="list-group-item">
-              <b>DNI del responsable:</b> {{ comedor.dni }}
-            </li>
-            <li class="list-group-item">
-              <b>Número de telefono del responsable:</b>
-              {{ comedor.numTelefono }}
-            </li>
-            <li class="list-group-item">
-              <b>Días y horarios que realiza el almuerzo:</b>
-              {{ comedor.diahorarioCocina }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>

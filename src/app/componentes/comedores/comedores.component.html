@@ -9,7 +9,7 @@
           data-bs-toggle="modal"
           data-bs-target="#agregarComedorModal"
         >
-          <i class="fas fa-plus"></i>Agregar Comedor
+          <i class="fas fa-plus"></i>Agregar Comedor / Merendero
         </a>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <input
         type="text"
         [(ngModel)]="busqueda"
-        placeholder="Buscar comedores..."
+        placeholder="Buscar..."
         style="text-align: center"
         required
       />
@@ -45,7 +45,7 @@
       <div class="col-md-9">
         <div class="card">
           <div class="card-header">
-            <h4>Listado de Comedores</h4>
+            <h4>Listado de Comedores / Merenderos</h4>
           </div>
 
 
@@ -89,7 +89,7 @@
       <div class="col-md-3">
         <div class="card text-center bg-success text-white mb-3">
           <div class="card-body">
-            <h3>Total Comedores</h3>
+            <h3>Total Comedores / Merenderos</h3>
             <h4 class="display-4">
               <i class="fas fa-house"></i> {{ comedores?.length }}
             </h4>
@@ -106,7 +106,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title">Agregar Comedor</h5>
+        <h5 class="modal-title">Agregar Comedor / Merendero</h5>
         <button class="close" data-bs-dismiss="modal" #botonCerrar>
           <span>&times;</span>
         </button>
@@ -245,7 +245,7 @@
 
           <div class="form-group">
             <label for="diahorarioCocina"
-              >Días y horarios que realiza el almuerzo</label
+              >Días y horarios de la actividad</label
             >
             <input
               type="text"
@@ -267,6 +267,34 @@
               Dia y horario de cocina requerido
             </div>
             <div [hidden]="!diahorarioCocina.errors?.['minlength']" class="invalid-feedback">
+              Debe contener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="actividadRealiza"
+              >Que actividad realiza</label
+            >
+            <input
+              type="text"
+              name="actividadRealiza"
+              class="form-control"
+              #actividadRealiza="ngModel"
+              [(ngModel)]="comedor.actividadRealiza"
+              [ngClass]="{
+                'is-invalid':
+                  actividadRealiza.errors && actividadRealiza.touched
+              }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!actividadRealiza.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Dia y horario de actividad requerido
+            </div>
+            <div [hidden]="!actividadRealiza.errors?.['minlength']" class="invalid-feedback">
               Debe contener al menos 2 caracteres
             </div>
           </div>

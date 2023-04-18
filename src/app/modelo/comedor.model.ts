@@ -8,6 +8,7 @@ export interface Comedor{
     numTelefono: string;
     diahorarioCocina: string;
     ubicacion: string;
+    actividadRealiza: string;
 
 
 

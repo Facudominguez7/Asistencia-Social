@@ -8,7 +8,7 @@
   </div>
 </header>
 
-<form #merenderoForm="ngForm" (ngSubmit)="guardar(merenderoForm)">
+<form #merenderoForm="ngForm" (ngSubmit)="guardar(merenderoForm, $event)">
   <flash-messages></flash-messages>
 
   <!--Botones-->

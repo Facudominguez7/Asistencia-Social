@@ -30,7 +30,6 @@
             <i class="fas fa-trash"></i>Eliminar Comedor
           </a>
         </div>
-
       </div>
     </div>
   </section>
@@ -43,7 +42,37 @@
             <div class="card-header">
               <h4>Editar Comedor</h4>
             </div>
+
             <div class="card-body">
+              <div class="form-group">
+                <label for="actividadRealiza">Actividades que realiza</label>
+                <input
+                  type="text"
+                  name="actividadRealiza"
+                  class="form-control"
+                  #actividadRealiza="ngModel"
+                  [(ngModel)]="comedor.actividadRealiza"
+                  [ngClass]="{
+                    'is-invalid':
+                      actividadRealiza.errors && actividadRealiza.touched
+                  }"
+                  required
+                  minlength="2"
+                />
+                <div
+                  [hidden]="!actividadRealiza.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Actividad requerida
+                </div>
+                <div
+                  [hidden]="!actividadRealiza.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
+
               <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input
@@ -66,7 +95,7 @@
                   [hidden]="!nombre.errors?.['minlength']"
                   class="invalid-feedback"
                 >
-                  Debe conrener al menos 2 caracteres
+                  Debe contener al menos 2 caracteres
                 </div>
               </div>
 
@@ -106,7 +135,9 @@
                   class="form-control"
                   #nombreRes="ngModel"
                   [(ngModel)]="comedor.nombreRes"
-                  [ngClass]="{ 'is-invalid': nombreRes.errors && nombreRes.touched }"
+                  [ngClass]="{
+                    'is-invalid': nombreRes.errors && nombreRes.touched
+                  }"
                   required
                   minlength="2"
                 />
@@ -151,14 +182,18 @@
               </div>
 
               <div class="form-group">
-                <label for="numTelefono">Número de telefono del responsable</label>
+                <label for="numTelefono"
+                  >Número de telefono del responsable</label
+                >
                 <input
                   type="text"
                   name="numTelefono"
                   class="form-control"
                   #numTelefono="ngModel"
                   [(ngModel)]="comedor.numTelefono"
-                  [ngClass]="{ 'is-invalid': numTelefono.errors && numTelefono.touched }"
+                  [ngClass]="{
+                    'is-invalid': numTelefono.errors && numTelefono.touched
+                  }"
                   required
                   minlength="2"
                 />
@@ -177,14 +212,19 @@
               </div>
 
               <div class="form-group">
-                <label for="diahorarioCocina">Días y horarios que realiza el almuerzo</label>
+                <label for="diahorarioCocina"
+                  >Días y horarios que realiza el almuerzo</label
+                >
                 <input
                   type="text"
                   name="diahorarioCocina"
                   class="form-control"
                   #diahorarioCocina="ngModel"
                   [(ngModel)]="comedor.diahorarioCocina"
-                  [ngClass]="{ 'is-invalid': diahorarioCocina.errors && diahorarioCocina.touched }"
+                  [ngClass]="{
+                    'is-invalid':
+                      diahorarioCocina.errors && diahorarioCocina.touched
+                  }"
                   required
                   minlength="2"
                 />
@@ -202,12 +242,40 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <label for="ubicacion"
+                  >Agregue el link correspondiente a la ubicación del Comedor
+                  (Formato https://)</label
+                >
+                <input
+                  type="text"
+                  name="ubicacion"
+                  class="form-control"
+                  #ubicacion="ngModel"
+                  [(ngModel)]="comedor.ubicacion"
+                  [ngClass]="{
+                    'is-invalid': ubicacion.errors && ubicacion.touched
+                  }"
+                  required
+                  minlength="2"
+                />
+                <div
+                  [hidden]="!ubicacion.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Ubicación requerida
+                </div>
+                <div
+                  [hidden]="!ubicacion.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
 </form>

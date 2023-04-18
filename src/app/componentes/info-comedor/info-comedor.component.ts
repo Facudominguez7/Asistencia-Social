@@ -24,9 +24,9 @@ export class InfoComedorComponent implements OnInit {
     numTelefono: '',
     diahorarioCocina: '',
     ubicacion: '',
+    actividadRealiza: '',
   };
   id: string;
-
 
   constructor(
     private comedoresServicio: ComdeorServicio,
@@ -40,24 +40,30 @@ export class InfoComedorComponent implements OnInit {
     //recuperar comedor con su respectivo id
     this.comedoresServicio.getComedor(this.id).subscribe((comedor) => {
       this.comedor = comedor;
-
     });
   }
 
-  guardar(comedorForm: NgForm) {
+  guardar(comedorForm: NgForm, event: Event) {
+    event.preventDefault();
     comedorForm.value.id = this.id;
     //modificar el comedor
     this.comedoresServicio.modificarComedor(comedorForm.value);
-    this.router.navigate(['/']);
   }
 
-  generarPDFNotas() {
+ generarPDFNotas() {
     // Obtener el contenido del textarea
     const element = document.getElementById('info') as HTMLTextAreaElement;
+    const ulElement = document.getElementById('ul-info');
 
-    if (element) {
+    if (element && ulElement) {
       // Obtener las líneas del textarea
       const lines = element.value.split('\n');
+
+      // Obtener la lista en formato de texto
+      const liElements = ulElement.querySelectorAll('li');
+      const listText = Array.from(liElements)
+        .map((li) => '- ' + li.textContent)
+        .join('\n');
 
       // Crear un nuevo documento PDF
       const doc = new jsPDF();
@@ -70,6 +76,14 @@ export class InfoComedorComponent implements OnInit {
 
       // Si el contenido no cabe en una sola página, agregar más páginas
       let y = topMargin;
+
+      // Agregar la lista al documento
+      doc.text(listText, 10, y);
+
+      // Actualizar la posición vertical de la página
+      y += lineHeight * (liElements.length + 1);
+
+      // Agregar las líneas del textarea al documento
       for (let i = 0; i < lines.length; i++) {
         // Dividir la línea en varias líneas que se ajusten al ancho de la página
         const words = doc.splitTextToSize(
@@ -87,20 +101,10 @@ export class InfoComedorComponent implements OnInit {
         }
       }
 
-      /*let y = topMargin;: Aquí se inicializa la variable y con el valor del margen superior, que será la posición en la que se comenzarán a agregar las líneas al documento PDF.
-
-for (let i = 0; i < lines.length; i++) {: Este es un bucle for que recorre cada una de las líneas del arreglo lines.
-
-if (y + lineHeight > pageHeight - bottomMargin) {: Esta línea es una condición que verifica si la altura disponible en la página actual es suficiente para agregar la siguiente línea. Si la altura no es suficiente, entonces se agrega una nueva página al documento y se reinicia la variable y al valor del margen superior.
-
-doc.text(lines[i], 10, y);: Aquí se agrega la línea actual del textarea al documento PDF en la posición x=10 (10 unidades desde el borde izquierdo de la página) y y, que es la posición actual calculada en función del margen superior, el alto de línea y la cantidad de líneas que ya han sido agregadas.
-
-y += lineHeight;: Finalmente, se incrementa el valor de y en la altura de línea, para que la siguiente línea sea agregada a la posición correcta en la página actual o en la siguiente si no hay espacio suficiente en la página actual.*/
-
       // Guardar el documento PDF
       doc.save('Informacion de comedor');
     } else {
-      console.error('Elemento "info" no encontrado');
+      console.error('Elemento "info" o "ul-info" no encontrado');
     }
   }
 }

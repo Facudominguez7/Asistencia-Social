@@ -235,14 +235,45 @@
                   Dia y horario de cocina requerido
                 </div>
                 <div
-                  [hidden]="!dni.errors?.['minlength']"
+                  [hidden]="!diahorarioCocina.errors?.['minlength']"
                   class="invalid-feedback"
                 >
                   Debe contener al menos 2 caracteres
                 </div>
               </div>
 
-              
+              <div class="form-group">
+                <label for="insumos"
+                  >Insumos</label
+                >
+                <input
+                  type="text"
+                  name="insumos"
+                  class="form-control"
+                  #insumos="ngModel"
+                  [(ngModel)]="comedor.insumos"
+                  [ngClass]="{
+                    'is-invalid':
+                      insumos.errors && insumos.touched
+                  }"
+                  required
+                  minlength="2"
+                />
+                <div
+                  [hidden]="!insumos.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Insumos requerido
+                </div>
+                <div
+                  [hidden]="!insumos.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
+
+
 
               <div class="form-group">
                 <label for="ubicacion"

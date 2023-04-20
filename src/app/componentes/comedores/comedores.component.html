@@ -37,7 +37,6 @@
 
 <hr />
 
-
 <!-- Listado Comedores-->
 <section id="comedores">
   <div class="container">
@@ -48,8 +47,7 @@
             <h4>Listado de Comedores / Merenderos</h4>
           </div>
 
-
-          <table class="table table-striped">
+          <table class="table table-striped ">
             <thead class="table-dark">
               <tr>
                 <th>#</th>
@@ -64,7 +62,7 @@
                 <td>{{ comedor.nombre }}</td>
                 <td>{{ comedor.direccion }}</td>
 
-                <td>
+                <td class="button-container">
                   <a
                     routerLink="/comedor/editar/{{ comedor.id }}"
                     class="btn btn-secondary"
@@ -72,7 +70,6 @@
                     <i class="fas fa-angle-double-right"></i> Editar
                   </a>
                   &nbsp;
-
 
                   <a
                     routerLink="/comedor/info/{{ comedor.id }}"
@@ -267,15 +264,16 @@
             >
               Dia y horario de cocina requerido
             </div>
-            <div [hidden]="!diahorarioCocina.errors?.['minlength']" class="invalid-feedback">
+            <div
+              [hidden]="!diahorarioCocina.errors?.['minlength']"
+              class="invalid-feedback"
+            >
               Debe contener al menos 2 caracteres
             </div>
           </div>
 
           <div class="form-group">
-            <label for="actividadRealiza"
-              >Que actividad realiza</label
-            >
+            <label for="actividadRealiza">Que actividad realiza</label>
             <input
               type="text"
               name="actividadRealiza"
@@ -295,15 +293,16 @@
             >
               Dia y horario de actividad requerido
             </div>
-            <div [hidden]="!actividadRealiza.errors?.['minlength']" class="invalid-feedback">
+            <div
+              [hidden]="!actividadRealiza.errors?.['minlength']"
+              class="invalid-feedback"
+            >
               Debe contener al menos 2 caracteres
             </div>
           </div>
 
           <div class="form-group">
-            <label for="insumos"
-              >Insumos</label
-            >
+            <label for="insumos">Insumos</label>
             <input
               type="text"
               name="insumos"
@@ -311,8 +310,7 @@
               #insumos="ngModel"
               [(ngModel)]="comedor.insumos"
               [ngClass]="{
-                'is-invalid':
-                  insumos.errors && insumos.touched
+                'is-invalid': insumos.errors && insumos.touched
               }"
               required
               minlength="2"
@@ -321,18 +319,20 @@
               [hidden]="!insumos.errors?.['required']"
               class="invalid-feedback"
             >
-              Insumos requerido
+              Insumo requerido
             </div>
-            <div [hidden]="!insumos.errors?.['minlength']" class="invalid-feedback">
+            <div
+              [hidden]="!insumos.errors?.['minlength']"
+              class="invalid-feedback"
+            >
               Debe contener al menos 2 caracteres
             </div>
           </div>
 
-
-
           <div class="form-group">
             <label for="ubicacion"
-              >Agregue el link correspondiente a la ubicación del Comedor / Merendero (Formato https://)</label
+              >Agregue el link correspondiente a la ubicación del Comedor /
+              Merendero (Formato https://)</label
             >
             <input
               type="text"
@@ -341,8 +341,7 @@
               #ubicacion="ngModel"
               [(ngModel)]="comedor.ubicacion"
               [ngClass]="{
-                'is-invalid':
-                  ubicacion.errors && ubicacion.touched
+                'is-invalid': ubicacion.errors && ubicacion.touched
               }"
               required
               minlength="2"
@@ -353,7 +352,10 @@
             >
               Ubicacion requerida
             </div>
-            <div [hidden]="!ubicacion.errors?.['minlength']" class="invalid-feedback">
+            <div
+              [hidden]="!ubicacion.errors?.['minlength']"
+              class="invalid-feedback"
+            >
               Debe contener al menos 2 caracteres
             </div>
           </div>

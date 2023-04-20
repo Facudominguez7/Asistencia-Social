@@ -22,13 +22,14 @@ import { PiePaginaComponent } from './componentes/pie-pagina/pie-pagina.componen
 import { ComdeorServicio } from './servicios/comedor.service';
 import { LoginService } from './servicios/login.service';
 import { AuthGuard } from './guardianes/auth.guard';
-import { MerenderoServicio } from './servicios/merendero.service';
+import { AsistenciaGeneralServicio } from './servicios/AsistenciaGeneral.service';
 
-import { EditarMerenderoComponent } from './componentes/editar-merendero/editar-merendero.component';
-import { TableroMerenderoComponent } from './componentes/tablero-merendero/tablero-merendero.component';
-import { MerenderoComponent } from './componentes/merenderos/merenderos.component';
+import { EditarAsistenciaGeneralComponent } from './componentes/editar-AsistenciaGral/editar-asistenciaGral.component';
+import { TableroAsistenciaGeneral} from './componentes/tablero-AsistenciaGeneral/tablero-AsistenciaGeneral.component';
+
 import { InfoComedorComponent } from './componentes/info-comedor/info-comedor.component';
-import { InfoMerenderoComponent } from './componentes/info-merendero/info-merendero.component';
+import { InfoAsistenciaGralComponent } from './componentes/info-AsistenciaGeneral/info-AsistenciaGral.component';
+import { AsistenciaGeneralComponent } from './componentes/Asistencias Generales/AsistenciaGral.component';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,13 @@ import { InfoMerenderoComponent } from './componentes/info-merendero/info-merend
     LoginComponent,
     NoEncontradoComponent,
     PiePaginaComponent,
-    EditarMerenderoComponent,
-    TableroMerenderoComponent,
-    MerenderoComponent,
+    TableroAsistenciaGeneral,
     InfoComedorComponent,
-    InfoMerenderoComponent,
+    InfoAsistenciaGralComponent,
+    EditarAsistenciaGeneralComponent,
+    AsistenciaGeneralComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import { InfoMerenderoComponent } from './componentes/info-merendero/info-merend
     FlashMessagesModule.forRoot(),
 
   ],
-  providers: [MerenderoServicio, ComdeorServicio, LoginService, AuthGuard,],
+  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

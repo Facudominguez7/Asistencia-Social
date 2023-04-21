@@ -20,11 +20,7 @@
             <i class="fas fa-arrow-left"></i>Regresar al inicio
           </a>
         </div>
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-success btn-block">
-            <i class="fas fa-check"></i> Guardar Asistencia
-          </button>
-        </div>
+
         <div class="col-md-3">
           <a
             [href]="asistenciaGral.ubicacion"
@@ -48,14 +44,49 @@
     </div>
   </section>
 
+  <section id="asistencia general">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-15">
+          <div class="card">
+            <div class="card-header">
+              <h4>Información</h4>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <b>Nombre Completo:</b> {{ asistenciaGral.nombre }}
+              </li>
+              <li class="list-group-item">
+                <b>Dirección:</b> {{ asistenciaGral.direccion }}
+              </li>
+              <li class="list-group-item">
+                <b>DNI:</b> {{ asistenciaGral.dni }}
+              </li>
+              <li class="list-group-item">
+                <b>Número de telefono del responsable:</b>
+                {{ asistenciaGral.numTelefono }}
+              </li>
+              <li class="list-group-item">
+                <b>Fecha de asistencia:</b>
+                {{ asistenciaGral.fecha }}
+              </li>
+              <li class="list-group-item">
+                <b>Tipo de Asistencia:</b>
+                {{ asistenciaGral.tipoAsistencia }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="details">
     <div class="container">
       <div class="row">
         <div class="col">
           <div class="card">
-            <div class="card-header">
-              <h4>Información de Asistencia</h4>
-            </div>
             <div class="card-body">
               <div class="form-group">
                 <label for="descripcion">Agregue notas aquí</label>
@@ -71,7 +102,7 @@
                   }"
                   required
                   minlength="2"
-                  style="height: 200px; resize: vertical"
+                  style="height: 400px; resize: vertical"
                 ></textarea>
                 <div
                   [hidden]="!descripcion.errors?.['minlength']"
@@ -81,6 +112,11 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-success btn-block">
+                <i class="fas fa-check"></i> Guardar Asistencia
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -88,32 +124,4 @@
   </section>
 </form>
 
-<section id="merenderos">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-15">
-        <div class="card">
-          <div class="card-header">
-            <h4>Información de Asistencia</h4>
-          </div>
 
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <b>Nombre:</b> {{ asistenciaGral.nombre }}
-            </li>
-            <li class="list-group-item">
-              <b>Dirección:</b> {{ asistenciaGral.direccion }}
-            </li>
-            <li class="list-group-item">
-              <b>DNI del responsable:</b> {{ asistenciaGral.dni }}
-            </li>
-            <li class="list-group-item">
-              <b>Número de telefono del responsable:</b>
-              {{ asistenciaGral.numTelefono }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>

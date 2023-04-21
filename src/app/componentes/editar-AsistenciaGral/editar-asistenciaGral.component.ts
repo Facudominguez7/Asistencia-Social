@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral';
+import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
 
 
@@ -75,7 +75,7 @@ export class EditarAsistenciaGeneralComponent {
       });
     }
     else{
-      //Agregar el nuevo comedor
+      //Agregar la nueva asistencia
       this.asistenciasServicio.agregarAsistenciaGral(this.asistenciagralForm.value);
       this.asistenciagralForm.resetForm();
       this.cerrarModal();
@@ -90,9 +90,9 @@ export class EditarAsistenciaGeneralComponent {
 
 
   eliminar(){
-    if(confirm('Seguro que desea eliminar el merendero?')){
+    if(confirm('Seguro que desea eliminar la asistencia?')){
       this.asistenciasServicio.eliminarAsistenciaGeneral(this.asistenciaGral);
-      this.router.navigate(['/merenderos']);
+      this.router.navigate(['/asistenciasGrales']);
     }
   }
 

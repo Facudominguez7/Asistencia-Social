@@ -16,7 +16,6 @@
   </div>
 </section>
 
-
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -39,7 +38,7 @@
 <hr />
 
 <!-- Listado Asistencias Generales-->
-<section id="asistenciasGrales">
+<section id="asistenciasGenerales">
   <div class="container">
     <div class="row">
       <div class="col-md-9">
@@ -57,24 +56,29 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let asistenciaGral of asistenciasGralesFiltrados; let i = index">
+              <tr
+                *ngFor="
+                  let asistenciaGral of asistenciasGralesFiltrados;
+                  let i = index
+                "
+              >
                 <td>{{ i + 1 }}</td>
                 <td>{{ asistenciaGral.nombre }}</td>
                 <td>{{ asistenciaGral.direccion }}</td>
-                <td>
+                <td class="button-container">
                   <a
-                    routerLink="asistenciaGral/editar/{{ asistenciaGral.id }}"
+                    routerLink="/asistenciaGral/editar/{{ asistenciaGral.id }}"
                     class="btn btn-secondary"
                   >
                     <i class="fas fa-angle-double-right"></i> Editar
                   </a>
                   &nbsp;
                   <a
-                  routerLink="asistenciaGral/info/{{ asistenciaGral.id }}"
-                  class="btn btn-secondary"
-                >
-                  <i class="fas fa-angle-double-right"></i> Info
-                </a>
+                    routerLink="/asistenciaGral/info/{{ asistenciaGral.id }}"
+                    class="btn btn-secondary"
+                  >
+                    <i class="fas fa-angle-double-right"></i> Info
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -102,7 +106,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title">Agregar Asistencia General</h5>
+        <h5 class="modal-title">Datos del Beneficiario</h5>
         <button class="close" data-bs-dismiss="modal" #botonCerrar>
           <span>&times;</span>
         </button>
@@ -110,10 +114,13 @@
 
       <flash-messages></flash-messages>
 
-      <form #asistenciagralForm="ngForm"  (ngSubmit)="agregarAsistenciaGral(asistenciagralForm)">
+      <form
+        #asistenciagralForm="ngForm"
+        (ngSubmit)="agregarAsistenciaGral(asistenciagralForm)"
+      >
         <div class="modal-body">
           <div class="form-group">
-            <label for="nombre">Nombre</label>
+            <label for="nombre">Nombre Completo</label>
             <input
               type="text"
               name="nombre"
@@ -134,7 +141,31 @@
               [hidden]="!nombre.errors?.['minlength']"
               class="invalid-feedback"
             >
-              Debe conrener al menos 2 caracteres
+              Debe contener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dni">DNI</label>
+            <input
+              type="text"
+              name="dni"
+              class="form-control"
+              #dni="ngModel"
+              [(ngModel)]="asistenciaGral.dni"
+              [ngClass]="{ 'is-invalid': dni.errors && dni.touched }"
+              required
+              minlength="2"
+              pattern="^[0-9]+$"
+            />
+            <div [hidden]="!dni.errors?.['required']" class="invalid-feedback">
+              DNI requerido
+            </div>
+            <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
+              Debe contener al menos 2 caracteres
+            </div>
+            <div [hidden]="!dni.errors?.['pattern']" class="invalid-feedback">
+              Debe contener solo números
             </div>
           </div>
 
@@ -164,26 +195,7 @@
             >
               Debe contener almenos 2 caracteres
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="dni">DNI</label>
-            <input
-              type="text"
-              name="dni"
-              class="form-control"
-              #dni="ngModel"
-              [(ngModel)]="asistenciaGral.dni"
-              [ngClass]="{ 'is-invalid': dni.errors && dni.touched }"
-              required
-              minlength="2"
-            />
-            <div [hidden]="!dni.errors?.['required']" class="invalid-feedback">
-              DNI requerido
-            </div>
-            <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
-              Debe contener al menos 2 caracteres
-            </div>
           </div>
 
           <div class="form-group">
@@ -199,6 +211,8 @@
               }"
               required
               minlength="2"
+              pattern="^[0-9]+$"
+
             />
             <div
               [hidden]="!numTelefono.errors?.['required']"
@@ -209,16 +223,71 @@
             <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
               Debe contener al menos 2 caracteres
             </div>
+            <div [hidden]="!numTelefono.errors?.['pattern']" class="invalid-feedback">
+              Debe contener solo números
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="diahorarioCocina"
-              >Días y horarios que realiza el almuerzo</label
+            <label for="numTelefono">Fecha de Asistencia</label>
+            <input
+              type="text"
+              name="fecha"
+              class="form-control"
+              #fecha="ngModel"
+              [(ngModel)]="asistenciaGral.fecha"
+              [ngClass]="{
+                'is-invalid': fecha.errors && fecha.touched
+              }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!fecha.errors?.['required']"
+              class="invalid-feedback"
             >
+              Fecha requerida
+            </div>
+            <div
+              [hidden]="!fecha.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe contener al menos 2 caracteres
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="numTelefono">Tipo de Asistencia</label>
+            <input
+              type="text"
+              name="tipoAsistencia"
+              class="form-control"
+              #tipoAsistencia="ngModel"
+              [(ngModel)]="asistenciaGral.tipoAsistencia"
+              [ngClass]="{
+                'is-invalid': tipoAsistencia.errors && tipoAsistencia.touched
+              }"
+              required
+              minlength="2"
+            />
+            <div
+              [hidden]="!tipoAsistencia.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Tipo de asistencia requerido
+            </div>
+            <div
+              [hidden]="!tipoAsistencia.errors?.['minlength']"
+              class="invalid-feedback"
+            >
+              Debe contener al menos 2 caracteres
+            </div>
+          </div>
 
           <div class="form-group">
             <label for="ubicacion"
-              >Agregue el link correspondiente a la ubicación del Beneficiario (Formato https://)</label
+              >Agregue el link correspondiente a la ubicación del Beneficiario
+              (Formato https://)</label
             >
             <input
               type="text"
@@ -227,8 +296,7 @@
               #ubicacion="ngModel"
               [(ngModel)]="asistenciaGral.ubicacion"
               [ngClass]="{
-                'is-invalid':
-                  ubicacion.errors && ubicacion.touched
+                'is-invalid': ubicacion.errors && ubicacion.touched
               }"
               required
               minlength="2"
@@ -239,12 +307,14 @@
             >
               Ubicacion requerida
             </div>
-            <div [hidden]="!ubicacion.errors?.['minlength']" class="invalid-feedback">
+            <div
+              [hidden]="!ubicacion.errors?.['minlength']"
+              class="invalid-feedback"
+            >
               Debe contener al menos 2 caracteres
             </div>
           </div>
         </div>
-
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Guardar</button>
         </div>

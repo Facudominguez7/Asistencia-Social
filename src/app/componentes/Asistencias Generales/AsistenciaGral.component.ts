@@ -1,7 +1,7 @@
 import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral';
+import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
 
 
@@ -18,8 +18,8 @@ export class AsistenciaGeneralComponent implements OnInit{
     nombre: '',
     direccion: '',
     descripcion: '',
-    dni: 0,
-    numTelefono: 0,
+    dni: null,
+    numTelefono: null,
     ubicacion: '',
     fecha: '',
     tipoAsistencia: '',
@@ -27,7 +27,7 @@ export class AsistenciaGeneralComponent implements OnInit{
 
   };
 
-  busqueda: string;
+  busqueda: number;
   asistenciasGralesFiltrados: AsistenciaGral[];
 
   @ViewChild("asistenciagralForm") asistenciagralForm: NgForm;
@@ -48,7 +48,7 @@ export class AsistenciaGeneralComponent implements OnInit{
   }
 
   buscar(){
-    this.asistenciaServicio.buscarAsistenciaGeneralPorNombre(this.busqueda)
+    this.asistenciaServicio.buscarAsistenciaGeneralPorDni(this.busqueda)
     .subscribe((asistenciasGrales) => (this.asistenciasGralesFiltrados = asistenciasGrales));
   }
 

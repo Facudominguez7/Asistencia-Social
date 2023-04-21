@@ -8,12 +8,12 @@ import {
 import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
-import { AsistenciaGral } from '../modelo/AsistenciaGeneral';
+import { AsistenciaGral } from '../modelo/AsistenciaGeneral.model';
 
 
 @Injectable()
 export class AsistenciaGeneralServicio {
-  asistenciageneralCollection: AngularFirestoreCollection<AsistenciaGral>;
+  asistenciageneralColleccion: AngularFirestoreCollection<AsistenciaGral>;
   asistenciaGDoc: AngularFirestoreDocument<AsistenciaGral>;
   asistenciasGenerales: Observable<AsistenciaGral[]>;
   asistenciaGeneral!: Observable<AsistenciaGral>;
@@ -21,24 +21,23 @@ export class AsistenciaGeneralServicio {
   //Metodo conectar base de datos
   constructor(private db: AngularFirestore) {
     //recuperar coleccion de comedores
-    this.asistenciageneralCollection = db.collection('asistencia general', (ref) =>
+    this.asistenciageneralColleccion = db.collection('asistenciageneral', (ref) =>
       ref.orderBy('nombre', 'asc')
     );
   }
 
-  //Método buscar
-  buscarAsistenciaGeneralPorNombre(nombre: string): Observable<AsistenciaGral[]> {
+  buscarAsistenciaGeneralPorDni(dni: number): Observable<AsistenciaGral[]> {
+    const dniStr = dni.toString();
     const queryFn: QueryFn = (ref) =>
-      ref.where('nombre', '>=', nombre).where('nombre', '<=', nombre + '\uf8ff');
+      ref.where('dni', '>=', dniStr).where('dni', '<=', dniStr + '\uf8ff');
     return this.db
-      .collection<AsistenciaGral>('merenderos', queryFn)
+      .collection<AsistenciaGral>('asistenciageneral', queryFn)
       .valueChanges({ idField: 'id' });
   }
-
   //Solicitud datos de asistencias generales pidiendo id (regresa objeto de tipo asistencia general)
   getAsistenciasGenerales(): Observable<AsistenciaGral[]> {
     //Obtener las Asistencias Generales
-    this.asistenciasGenerales = this.asistenciageneralCollection.snapshotChanges().pipe(
+    this.asistenciasGenerales = this.asistenciageneralColleccion.snapshotChanges().pipe(
       map((cambios) => {
         return cambios.map((accion) => {
           const datos = accion.payload.doc.data() as AsistenciaGral;
@@ -51,12 +50,12 @@ export class AsistenciaGeneralServicio {
   }
 
   agregarAsistenciaGral(asistencia: AsistenciaGral) {
-    this.asistenciageneralCollection.add(asistencia);
+    this.asistenciageneralColleccion.add(asistencia);
   }
 
   getAsistenciaGeneral(id: string): Observable<AsistenciaGral> {
     //recuperar asistencia general de la base de datos
-    this.asistenciaGDoc = this.db.doc<AsistenciaGral>(`asistenciasG/${id}`);
+    this.asistenciaGDoc = this.db.doc<AsistenciaGral>(`asistenciageneral/${id}`);
     //recuperar objeto tipo asistencia general (observable)
      return this.asistenciaGeneral = this.asistenciaGDoc.snapshotChanges().pipe(
       map( accion=> {
@@ -75,12 +74,12 @@ export class AsistenciaGeneralServicio {
   }
 
   modificarAsistenciaGral(asistencia: AsistenciaGral){
-      this.asistenciaGDoc = this.db.doc(`asistenciasG/${asistencia.id}`);
+      this.asistenciaGDoc = this.db.doc(`asistenciageneral/${asistencia.id}`);
       this.asistenciaGDoc.update(asistencia);
   }
 
   eliminarAsistenciaGeneral(asistencia: AsistenciaGral){
-    this.asistenciaGDoc = this.db.doc(`asistenciasG/${asistencia.id}`);
+    this.asistenciaGDoc = this.db.doc(`asistenciageneral/${asistencia.id}`);
     this.asistenciaGDoc.delete();
   }
 }

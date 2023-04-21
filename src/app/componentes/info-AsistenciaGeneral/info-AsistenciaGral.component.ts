@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import jsPDF from 'jspdf';
-import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral';
+import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
 
 
@@ -56,10 +56,17 @@ export class InfoAsistenciaGralComponent {
   generarPDFNotas() {
     // Obtener el contenido del textarea
     const element = document.getElementById('info') as HTMLTextAreaElement;
+    const ulElement = document.getElementById('asistencia general');
 
-    if (element) {
+    if (element && ulElement) {
       // Obtener las líneas del textarea
       const lines = element.value.split('\n');
+
+       // Obtener la lista en formato de texto
+       const liElements = ulElement.querySelectorAll('li');
+       const listText = Array.from(liElements)
+         .map((li) => '- ' + li.textContent)
+         .join('\n');
 
       // Crear un nuevo documento PDF
       const doc = new jsPDF();
@@ -73,6 +80,13 @@ export class InfoAsistenciaGralComponent {
 
       // Si el contenido no cabe en una sola página, agregar más páginas
       let y = topMargin;
+
+      // Agregar la lista al documento
+      doc.text(listText, 10, y);
+
+      // Actualizar la posición vertical de la página
+      y += lineHeight * (liElements.length + 1);
+
       for (let i = 0; i < lines.length; i++) {
         // Dividir la línea en varias líneas que se ajusten al ancho de la página
         const words = doc.splitTextToSize(

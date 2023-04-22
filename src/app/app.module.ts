@@ -30,6 +30,7 @@ import { TableroAsistenciaGeneral} from './componentes/tablero-AsistenciaGeneral
 import { InfoComedorComponent } from './componentes/info-comedor/info-comedor.component';
 import { InfoAsistenciaGralComponent } from './componentes/info-AsistenciaGeneral/info-AsistenciaGral.component';
 import { AsistenciaGeneralComponent } from './componentes/Asistencias Generales/AsistenciaGral.component';
+import { InsumosServicio } from './servicios/insumos.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { AsistenciaGeneralComponent } from './componentes/Asistencias Generales/
     FlashMessagesModule.forRoot(),
 
   ],
-  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard,],
+  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -26,6 +26,7 @@ export class InfoComedorComponent implements OnInit {
     ubicacion: '',
     actividadRealiza: '',
     insumos: '',
+
   };
   id: string;
 

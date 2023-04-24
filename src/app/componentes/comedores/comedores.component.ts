@@ -24,6 +24,7 @@ export class ComedoresComponent implements OnInit{
     insumos: '',
 
 
+
   };
   busqueda: string;
   busquedaDni: string;

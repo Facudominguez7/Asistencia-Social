@@ -63,7 +63,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     AngularFireStorageModule,
 
   ],
-  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard,],
+  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

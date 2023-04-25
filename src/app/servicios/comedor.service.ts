@@ -9,7 +9,8 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { Comedor } from '../modelo/comedor.model';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable()
 export class ComdeorServicio {
@@ -19,7 +20,7 @@ export class ComdeorServicio {
   comedor!: Observable<Comedor>;
 
   //Metodo conectar base de datos
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private storage: AngularFireStorage) {
     //recuperar coleccion de comedores
     this.comedoresColeccion = db.collection('comedores', (ref) =>
       ref.orderBy('nombre', 'asc')
@@ -100,4 +101,25 @@ export class ComdeorServicio {
     this.comedorDoc = this.db.doc(`comedores/${comedor.id}`);
     this.comedorDoc.delete();
   }
+
+  agregarExcel(comedorId: string, archivo: File) {
+    const rutaArchivo = `archivos_excel/${comedorId}/${archivo.name}`;
+    const referenciaArchivo = this.storage.ref(rutaArchivo);
+    const tareaCarga = this.storage.upload(rutaArchivo, archivo);
+
+    tareaCarga.snapshotChanges().pipe(
+      finalize(() => {
+        referenciaArchivo.getDownloadURL().subscribe(url => {
+          this.db.collection('comedores').doc(comedorId).update({ urlArchivoExcel: url });
+        });
+      })
+    ).subscribe();
+  }
+  
+
+
+
+
+
+
 }

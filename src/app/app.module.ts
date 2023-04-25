@@ -30,7 +30,8 @@ import { TableroAsistenciaGeneral} from './componentes/tablero-AsistenciaGeneral
 import { InfoComedorComponent } from './componentes/info-comedor/info-comedor.component';
 import { InfoAsistenciaGralComponent } from './componentes/info-AsistenciaGeneral/info-AsistenciaGral.component';
 import { AsistenciaGeneralComponent } from './componentes/Asistencias Generales/AsistenciaGral.component';
-import { InsumosServicio } from './servicios/insumos.service';
+import { InsumoComedorComponent } from './componentes/insumo-comedor/insumo-comedor.component';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { InsumosServicio } from './servicios/insumos.service';
     InfoAsistenciaGralComponent,
     EditarAsistenciaGeneralComponent,
     AsistenciaGeneralComponent,
+    InsumoComedorComponent,
 
 
   ],
@@ -58,6 +60,7 @@ import { InsumosServicio } from './servicios/insumos.service';
     AngularFireAuthModule,
     FormsModule,
     FlashMessagesModule.forRoot(),
+    AngularFireStorageModule,
 
   ],
   providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio],

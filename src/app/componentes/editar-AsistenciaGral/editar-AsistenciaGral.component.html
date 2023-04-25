@@ -145,7 +145,34 @@
                   Numero de telefono del responsable requerido
                 </div>
                 <div
-                  [hidden]="!dni.errors?.['minlength']"
+                  [hidden]="!numTelefono.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="ubicacion">Agregue el link correspondiente a la ubicación del Beneficiario
+                  (Formato https://)</label>
+                <input
+                  type="text"
+                  name="ubicacion"
+                  class="form-control"
+                  #ubicacion="ngModel"
+                  [(ngModel)]="asistenciaGral.ubicacion"
+                  [ngClass]="{ 'is-invalid': ubicacion.errors && ubicacion.touched }"
+                  required
+                  minlength="2"
+                />
+                <div
+                  [hidden]="!ubicacion.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Ubicacion requerida
+                </div>
+                <div
+                  [hidden]="!ubicacion.errors?.['minlength']"
                   class="invalid-feedback"
                 >
                   Debe contener al menos 2 caracteres

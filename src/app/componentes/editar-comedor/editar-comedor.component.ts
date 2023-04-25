@@ -26,6 +26,7 @@ export class EditarComedorComponent implements OnInit {
     insumos: '',
 
 
+
   };
 
   id:string;

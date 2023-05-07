@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
+import { LoginService } from 'src/app/servicios/login.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.s
 })
 export class EditarAsistenciaGeneralComponent {
   asistenciasGrales?: AsistenciaGral[];
+  usuariologueado: string;
   asistenciaGral: AsistenciaGral = {
     nombre: '',
     direccion: '',
@@ -35,7 +37,8 @@ export class EditarAsistenciaGeneralComponent {
     private asistenciasServicio: AsistenciaGeneralServicio,
     private flashMessages: FlashMessagesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(){
@@ -50,6 +53,12 @@ export class EditarAsistenciaGeneralComponent {
         this.asistenciasGrales = asistenciasGrales;
       }
     )
+    this.loginService.getusuarioIdentificado().subscribe( auth => {
+      if(auth){
+        this.usuariologueado = auth.email ?? '';
+      }
+    })
+    
   }
 
   guardar(asistenciagralForm: NgForm){

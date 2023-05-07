@@ -25,7 +25,7 @@
             <i class="fas fa-check"></i> Guardar Asistencia
           </button>
         </div>
-        <div class="col-md-3">
+        <div *ngIf="usuariologueado == 'facudominguez457@gmail.com'" && "usuariologueado == 'pepe-olmedo@hotmail.com'" class="col-md-3">
           <a routerLink="/asistenciasGrales" (click)="eliminar()" class="btn btn-danger btn-block">
             <i class="fas fa-trash"></i>Eliminar Asistencia
           </a>

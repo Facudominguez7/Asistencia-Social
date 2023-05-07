@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
+import { type } from 'os';
 
 @Component({
   selector: 'app-info-comedor',
@@ -126,30 +127,50 @@ export class InfoComedorComponent implements OnInit {
     html2pdf().set(opciones).from(elementoLista).save();
   }*/
 
-  generarPDF() {
+  /*generarPDF() {
     const element = document.getElementById(
       'info descripcion'
     ) as HTMLTextAreaElement;
     const ulElement = document.getElementById('ul-info');
+    
 
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
+      margin: 1,
+      image: {type: 'png', quality: 0.98},
       scale: 3,
+      jsPDF: {unit: 'in', format: 'a4', orientation: 'portrait'},
+      autoPaging: true,
+      pagebreak: {mode: 'avoid-all', before: '#descripcion'}
     };
+
+    
     if (ulElement && element) {
+
+      
+
 
 
       html2canvas(ulElement, options)
         .then((canvas) => {
           const img = canvas.toDataURL('image/PNG');
+          
 
           //Agregar imagen canvas a pdf
           const bufferX = 15;
           const bufferY = 15;
           const imgProps = (doc as any).getImageProperties(img);
           const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-          const pdfHeigth = (imgProps.height * pdfWidth) / imgProps.width;
+          let pdfHeigth = (imgProps.height * pdfWidth) / imgProps.width;
+          let currentPage = 1;
+
+          
+          
+        
+          doc.setFontSize(16);
+          doc.setFont('fontFamily', 'fontStyle' );
+          doc.text("Director Rolando Olmedo" + "                                    "+ "Direccion General de Asistencia Social", bufferX, bufferY -1);
           doc.addImage(
             img,
             'PNG',
@@ -160,11 +181,45 @@ export class InfoComedorComponent implements OnInit {
             undefined,
             'FAST'
           );
+          
+          //Agregar el contenido de "ul-info"
+          const ulOptions = {
+            y: bufferY + pdfHeigth + 20
+          };
+          doc.setFontSize(12);
+          const liElements = ulElement.getElementsByTagName('li');
+          let startY = ulOptions.y;
+          let remainingHeight = doc.internal.pageSize.getHeight() - 
 
           // Agregar el texto de "info descripcion" como un elemento de texto separado en el PDF
           const text = element.value;
+          let lines  = doc.splitTextToSize(text, pdfWidth);
+          let lineHeight = doc.getLineHeight() / doc.internal.scaleFactor;
+          startY = bufferY + pdfHeigth + 20;
+          let remainingHeight = doc.internal.pageSize.getHeight() - startY -20;
           doc.setFontSize(12);
-          doc.text(text, bufferX, bufferY + pdfHeigth + 20);
+          let i = 0;
+          if ( i > 0){
+            doc.addPage();
+            currentPage++;
+            startY = bufferY;
+            remainingHeight = doc.internal.pageSize.getHeight() - startY -20;
+          }
+          while (lines.length > 0 && remainingHeight > lineHeight){
+            let line = lines.shift();
+            doc.text(line, bufferX, startY);
+            startY += lineHeight;
+            remainingHeight -= lineHeight;
+          }
+
+          if(lines.length > 0) {
+            doc.addPage();
+            currentPage++;
+            startY = bufferY;
+            remainingHeight = doc.internal.pageSize.getHeight() - startY -20;
+          }
+          i++;
+          
 
           return doc;
         })
@@ -174,5 +229,5 @@ export class InfoComedorComponent implements OnInit {
     } else {
       console.error('Elemento "info" o "ul-info" no encontrado');
     }
-  }
+  }*/
 }

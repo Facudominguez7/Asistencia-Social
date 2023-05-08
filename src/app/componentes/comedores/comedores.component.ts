@@ -51,6 +51,10 @@ export class ComedoresComponent implements OnInit{
     this.comedoresServicio.buscarComedorPorNombre(this.busqueda)
     .subscribe((comedores) => (this.comedoresFiltrados = comedores));
 }
+buscarPorDni(){
+  this.comedoresServicio.buscarComedorPorDni(this.busquedaDni)
+  .subscribe((comedores) => (this.comedoresFiltrados = comedores));
+}
 
   agregar(comedorForm: NgForm){
 

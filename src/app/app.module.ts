@@ -32,6 +32,7 @@ import { InfoAsistenciaGralComponent } from './componentes/info-AsistenciaGenera
 import { AsistenciaGeneralComponent } from './componentes/Asistencias Generales/AsistenciaGral.component';
 import { InsumoComedorComponent } from './componentes/insumo-comedor/insumo-comedor.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { InsumosServicio } from './servicios/insumos.service';
 
 @NgModule({
   declarations: [

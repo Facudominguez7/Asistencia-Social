@@ -104,7 +104,7 @@ export class InfoComedorComponent implements OnInit {
       }
 
       // Guardar el documento PDF
-      doc.save('Informacion de comedor');
+      doc.save('Informacion de comedor / merendero');
     } else {
       console.error('Elemento "info" o "ul-info" no encontrado');
     }

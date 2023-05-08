@@ -23,12 +23,12 @@
 
         <div class="col-md-3">
           <a
-            [href]="asistenciaGral.ubicacion"
+            [href]="asistenciaGral.ubicacion.startsWith('http') ? asistenciaGral.ubicacion + '&amp;geo' : 'https://www.google.com/maps/search/?api=1&amp;query=' + asistenciaGral.ubicacion + '&amp;geo'"
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary"
           >
-            Ver ubicacion en google maps
+            Ver ubicación en Google Maps
           </a>
         </div>
         <div class="col-md-3">

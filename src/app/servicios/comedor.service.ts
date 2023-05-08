@@ -35,6 +35,14 @@ export class ComdeorServicio {
       .valueChanges({ idField: 'id' });
   }
 
+  buscarComedorPorDni(dni: string): Observable<Comedor[]> {
+    const queryFn: QueryFn = (ref) =>
+      ref.where('dni', '>=', dni).where('dni' , '<=', dni +  '\uf8ff');
+    return this.db
+      .collection<Comedor>('comedores', queryFn)
+      .valueChanges({ idField: 'id' });
+  }
+
   //Solicitud datos de comedores pidiendo id (regresa objeto de tipo comedor)
   getComedores(): Observable<Comedor[]> {
     //Obtener los comedores
@@ -115,7 +123,7 @@ export class ComdeorServicio {
       })
     ).subscribe();
   }
-  
+
 
 
 

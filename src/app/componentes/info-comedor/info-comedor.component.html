@@ -7,7 +7,6 @@
     </div>
   </div>
 </header>
-
 <form #comedorForm="ngForm" (ngSubmit)="guardar(comedorForm, $event)">
   <flash-messages></flash-messages>
 
@@ -23,7 +22,13 @@
 
         <div class="col-md-3">
           <a
-            [href]="comedor.ubicacion.startsWith('http') ? comedor.ubicacion + '&amp;geo' : 'https://www.google.com/maps/search/?api=1&amp;query=' + comedor.ubicacion + '&amp;geo'"
+            [href]="
+              comedor.ubicacion.startsWith('http')
+                ? comedor.ubicacion + '&amp;geo'
+                : 'https://www.google.com/maps/search/?api=1&amp;query=' +
+                  comedor.ubicacion +
+                  '&amp;geo'
+            "
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary"
@@ -35,7 +40,7 @@
           <button
             type="button"
             class="btn btn-success btn-block"
-            (click)="generarPDFNotas()"
+            (click)="generarPDF()"
           >
             <i></i>Generar PDF
           </button>
@@ -53,7 +58,11 @@
               <h4>Información</h4>
             </div>
 
-            <ul class="list-group list-group-flush" id="ul-info">
+            <ul
+              class="list-group list-group-flush"
+              id="ul-info"
+              style="font-size: 16pt"
+            >
               <li class="list-group-item">
                 <b>Actividades que realiza:</b>
                 {{ comedor.actividadRealiza }}
@@ -92,16 +101,16 @@
   <section id="Información Comedor">
     <div class="container">
       <div class="row">
-        <div class="col" >
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <div class="form-group">
                 <label for="descripcion">Agregue notas aquí</label>
                 <textarea
-                  id="info"
+                  id="info descripcion"
                   type="text"
                   name="descripcion"
-                  class="form-control "
+                  class="form-control"
                   #descripcion="ngModel"
                   [(ngModel)]="comedor.descripcion"
                   required
@@ -125,5 +134,7 @@
         </div>
       </div>
     </div>
+
+
   </section>
 </form>

@@ -7,6 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-info-comedor',
@@ -26,7 +27,6 @@ export class InfoComedorComponent implements OnInit {
     ubicacion: '',
     actividadRealiza: '',
     insumos: '',
-
   };
   id: string;
 
@@ -52,7 +52,7 @@ export class InfoComedorComponent implements OnInit {
     this.comedoresServicio.modificarComedor(comedorForm.value);
   }
 
- generarPDFNotas() {
+  generarPDFNotas() {
     // Obtener el contenido del textarea
     const element = document.getElementById('info') as HTMLTextAreaElement;
     const ulElement = document.getElementById('ul-info');
@@ -105,6 +105,72 @@ export class InfoComedorComponent implements OnInit {
 
       // Guardar el documento PDF
       doc.save('Informacion de comedor / merendero');
+    } else {
+      console.error('Elemento "info" o "ul-info" no encontrado');
+    }
+  }
+
+  /*generarPdf(){
+    const informacionComedor = document.getElementById('info descripcion');
+    const elementoLista = document.getElementById('ul-info');
+    const opciones = {
+      margin: 1,
+      image: {type: 'png' , quality: 0.98},
+      filename: "Información de Comedor / Merendero" + ".pdf",
+      html2canvas: {scale: 3},
+      jsPDF: {unit: 'in', format: 'a4', orientation: 'portrait' },
+      autoPaging: true,
+      pagebreak: {mode: 'avoid-all'}
+    }
+    html2pdf().set(opciones).from(informacionComedor).save();
+    html2pdf().set(opciones).from(elementoLista).save();
+  }*/
+
+  generarPDF() {
+    const element = document.getElementById(
+      'info descripcion'
+    ) as HTMLTextAreaElement;
+    const ulElement = document.getElementById('ul-info');
+
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    if (ulElement && element) {
+
+
+      html2canvas(ulElement, options)
+        .then((canvas) => {
+          const img = canvas.toDataURL('image/PNG');
+
+          //Agregar imagen canvas a pdf
+          const bufferX = 15;
+          const bufferY = 15;
+          const imgProps = (doc as any).getImageProperties(img);
+          const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+          const pdfHeigth = (imgProps.height * pdfWidth) / imgProps.width;
+          doc.addImage(
+            img,
+            'PNG',
+            bufferX,
+            bufferY,
+            pdfWidth,
+            pdfHeigth,
+            undefined,
+            'FAST'
+          );
+
+          // Agregar el texto de "info descripcion" como un elemento de texto separado en el PDF
+          const text = element.value;
+          doc.setFontSize(12);
+          doc.text(text, bufferX, bufferY + pdfHeigth + 20);
+
+          return doc;
+        })
+        .then((docResult) => {
+          docResult.save(`${new Date().toISOString()}_tutorial.pdf`);
+        });
     } else {
       console.error('Elemento "info" o "ul-info" no encontrado');
     }

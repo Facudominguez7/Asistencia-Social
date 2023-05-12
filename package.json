@@ -28,6 +28,7 @@
     "jquery": "^3.6.4",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
+    "node-firestore-import-export": "^1.1.0",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

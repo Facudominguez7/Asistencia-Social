@@ -9,8 +9,16 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private afAuth: AngularFireAuth) {}
 
   canActivate(): Observable<boolean> {
+    /*El método canActivate se utiliza para determinar si el usuario
+    puede acceder a una ruta protegida. Devuelve un 'Observable' de tipo
+    boolean*/
     return this.afAuth.authState.pipe(
+      /* Se llama al método pipe() en un Observable llamado authState
+      del objeto afAuth. El método pipe() permite encadenar eventos
+      para transformar el flujo de datos en Obserable*/
       map((auth) => {
+        /*Se utiliza el operador 'map()' para transformar el valor emitido por el
+        'Observable'. En este caso, el valor emitido es el objeto de autenticación('auth')*/
         if (!auth) {
           this.router.navigate(['/login']);
           return false;

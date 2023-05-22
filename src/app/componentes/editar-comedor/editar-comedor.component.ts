@@ -4,6 +4,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Comedor } from 'src/app/modelo/comedor.model';
 import { ComdeorServicio } from 'src/app/servicios/comedor.service';
+import { LoginService } from 'src/app/servicios/login.service';
 
 @Injectable()
 @Component({
@@ -13,6 +14,7 @@ import { ComdeorServicio } from 'src/app/servicios/comedor.service';
 })
 export class EditarComedorComponent implements OnInit {
   comedores?: Comedor[];
+  usuariologueado: string;
   comedor: Comedor = {
     nombre: '',
     direccion: '',
@@ -38,7 +40,8 @@ export class EditarComedorComponent implements OnInit {
     private comedoresServicio: ComdeorServicio,
     private flashMessages: FlashMessagesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(){
@@ -53,6 +56,11 @@ export class EditarComedorComponent implements OnInit {
         this.comedores = comedores;
       }
     )
+    this.loginService.getusuarioIdentificado().subscribe( auth => {
+      if(auth){
+        this.usuariologueado = auth.email ?? '';
+      }
+    })
   }
 
   guardar(comedorForm: NgForm){

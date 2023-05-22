@@ -53,71 +53,85 @@ export class InfoAsistenciaGralComponent {
 
   }
 
-  generarPDFNotas() {
-    // Obtener el contenido del textarea
+  generarPDF() {
     const element = document.getElementById('info') as HTMLTextAreaElement;
-    const ulElement = document.getElementById('asistencia general');
+    const ulElement = document.getElementById('ul-info');
 
-    if (element && ulElement) {
-      // Obtener las líneas del textarea
-      const lines = element.value.split('\n');
+    const doc = new jsPDF('p', 'pt', 'a4');
 
-       // Obtener la lista en formato de texto
-       const liElements = ulElement.querySelectorAll('li');
-       const listText = Array.from(liElements)
-         .map((li) => '- ' + li.textContent)
-         .join('\n');
+    if (ulElement && element) {
+      const bufferX = 15;
+      const bufferY = 15;
+      const lineHeight = doc.getLineHeight() / doc.internal.scaleFactor;
+      let startY = bufferY;
+      let currentPage = 1;
 
-      // Crear un nuevo documento PDF
-      const doc = new jsPDF();
-
-      // Configurar los márgenes y la altura de línea
-      const lineHeight = 10; // Altura de línea
-      const topMargin = 10; // Margen superior
-      const bottomMargin = 10; // Margen inferior
-      const pageHeight = doc.internal.pageSize.height;
-
-
-      // Si el contenido no cabe en una sola página, agregar más páginas
-      let y = topMargin;
-
-      // Agregar la lista al documento
-      doc.text(listText, 10, y);
-
-      // Actualizar la posición vertical de la página
-      y += lineHeight * (liElements.length + 1);
-
-      for (let i = 0; i < lines.length; i++) {
-        // Dividir la línea en varias líneas que se ajusten al ancho de la página
-        const words = doc.splitTextToSize(
-          lines[i],
-          doc.internal.pageSize.width - 20
+      function encabezado(){
+        doc.setFontSize(16);
+        doc.setFont('fontFamily' , 'fontStyle');
+        doc.text(
+          'Director Rolando Olmedo' +
+          '                                                     '+
+          'Dirección de Asistencia Social',
+          bufferX,
+          startY
         );
-        // Agregar las líneas al documento
-        for (let j = 0; j < words.length; j++) {
-          if (y + lineHeight > pageHeight - bottomMargin) {
-            doc.addPage();
-            y = topMargin;
-          }
-          doc.text(words[j], 10, y);
-          y += lineHeight;
-        }
+        //Ajustar la posición vertical después del encabezado
+        startY += lineHeight + 10;
       }
 
-      /*let y = topMargin;: Aquí se inicializa la variable y con el valor del margen superior, que será la posición en la que se comenzarán a agregar las líneas al documento PDF.
+      // Dibujar el encabezado en la primera página
+      encabezado();
 
-for (let i = 0; i < lines.length; i++) {: Este es un bucle for que recorre cada una de las líneas del arreglo lines.
+      // Agregar el contenido de "ul-info"
+      const liElements = Array.from(ulElement.getElementsByTagName('li')) as HTMLLIElement[];
+      let pdfWidth: number = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = doc.internal.pageSize.getHeight() - 20;
 
-if (y + lineHeight > pageHeight - bottomMargin) {: Esta línea es una condición que verifica si la altura disponible en la página actual es suficiente para agregar la siguiente línea. Si la altura no es suficiente, entonces se agrega una nueva página al documento y se reinicia la variable y al valor del margen superior.
+      for (let li of liElements) {
+          const text = li.textContent || '';
+          const lines = doc.splitTextToSize(text, pdfWidth);
 
-doc.text(lines[i], 10, y);: Aquí se agrega la línea actual del textarea al documento PDF en la posición x=10 (10 unidades desde el borde izquierdo de la página) y y, que es la posición actual calculada en función del margen superior, el alto de línea y la cantidad de líneas que ya han sido agregadas.
+          for(let line of lines) {
+            if(startY + lineHeight > pdfHeight) {
+              doc.addPage();
+              currentPage++;
+              startY = bufferY;
+              encabezado();
+            }
 
-y += lineHeight;: Finalmente, se incrementa el valor de y en la altura de línea, para que la siguiente línea sea agregada a la posición correcta en la página actual o en la siguiente si no hay espacio suficiente en la página actual.*/
+            doc.setFontSize(12);
+            doc.text(line, bufferX, startY + lineHeight);
+            startY += lineHeight;
+          }
+      }
 
-      // Guardar el documento PDF
-      doc.save('Informacion de asistencia');
-    } else {
-      console.error('Elemento "info" no encontrado');
+      // Agregar el texto de "info descripcion" como un elemento de texto separado en el PDF
+      const text = element.value;
+      pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const lines = doc.splitTextToSize(text, pdfWidth);
+
+      startY += lineHeight + 10;
+
+      for (let line of lines) {
+        if (startY + lineHeight > pdfHeight) {
+          doc.addPage();
+          currentPage++;
+          startY = bufferY;
+          encabezado();
+        }
+
+        doc.setFontSize(12);
+        doc.text(line, bufferX, startY + lineHeight);
+        startY += lineHeight;
+      }
+
+      //Actualizar el encabezado en la primera página
+      doc.setPage(1);
+      startY = bufferY;
+      encabezado();
+
+      doc.save(`Información de Asistencia.pdf`);
     }
   }
 }

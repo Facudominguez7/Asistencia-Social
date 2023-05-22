@@ -8,7 +8,10 @@
   </div>
 </header>
 
-<form #asistenciagralForm="ngForm" (ngSubmit)="guardar(asistenciagralForm, $event)">
+<form
+  #asistenciagralForm="ngForm"
+  (ngSubmit)="guardar(asistenciagralForm, $event)"
+>
   <flash-messages></flash-messages>
 
   <!--Botones-->
@@ -23,7 +26,13 @@
 
         <div class="col-md-3">
           <a
-            [href]="asistenciaGral.ubicacion.startsWith('http') ? asistenciaGral.ubicacion + '&amp;geo' : 'https://www.google.com/maps/search/?api=1&amp;query=' + asistenciaGral.ubicacion + '&amp;geo'"
+            [href]="
+              asistenciaGral.ubicacion.startsWith('http')
+                ? asistenciaGral.ubicacion + '&amp;geo'
+                : 'https://www.google.com/maps/search/?api=1&amp;query=' +
+                  asistenciaGral.ubicacion +
+                  '&amp;geo'
+            "
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary"
@@ -35,7 +44,7 @@
           <button
             type="button"
             class="btn btn-success btn-block"
-            (click)="generarPDFNotas()"
+            (click)="generarPDF()"
           >
             <i></i>Generar PDF
           </button>
@@ -53,7 +62,7 @@
               <h4>Información</h4>
             </div>
 
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush" id="ul-info">
               <li class="list-group-item">
                 <b>Nombre Completo:</b> {{ asistenciaGral.nombre }}
               </li>
@@ -97,9 +106,6 @@
                   class="form-control"
                   #descripcion="ngModel"
                   [(ngModel)]="asistenciaGral.descripcion"
-                  [ngClass]="{
-                    'is-invalid': descripcion.errors && descripcion.touched
-                  }"
                   required
                   minlength="2"
                   style="height: 400px; resize: vertical"
@@ -123,5 +129,3 @@
     </div>
   </section>
 </form>
-
-

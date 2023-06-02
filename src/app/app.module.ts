@@ -33,6 +33,7 @@ import { AsistenciaGeneralComponent } from './componentes/Asistencias Generales/
 import { InsumoComedorComponent } from './componentes/insumo-comedor/insumo-comedor.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { InsumosServicio } from './servicios/insumos.service';
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { InsumosServicio } from './servicios/insumos.service';
     EditarAsistenciaGeneralComponent,
     AsistenciaGeneralComponent,
     InsumoComedorComponent,
+    RegistroComponent,
 
 
   ],

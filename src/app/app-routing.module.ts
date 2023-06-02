@@ -10,9 +10,11 @@ import { InfoAsistenciaGralComponent} from './componentes/info-AsistenciaGeneral
 import { InfoComedorComponent } from './componentes/info-comedor/info-comedor.component';
 import { EditarAsistenciaGeneralComponent } from './componentes/editar-AsistenciaGral/editar-asistenciaGral.component';
 import { InsumoComedorComponent } from './componentes/insumo-comedor/insumo-comedor.component';
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'registrarse', component: RegistroComponent},
   {path:'', component: TableroComedoresComponent, canActivate: [AuthGuard]},
   {path:'asistenciasGrales', component: TableroAsistenciaGeneral, canActivate: [AuthGuard]},
   {path: 'comedor/editar/:id', component: EditarComedorComponent, canActivate: [AuthGuard]},

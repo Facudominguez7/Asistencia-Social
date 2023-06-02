@@ -28,5 +28,11 @@ export class LoginService{
     this.authService.signOut();
   }
 
+  registro(email: string, password: string){
+    return new Promise((resolve , reject) => {
+      this.authService.createUserWithEmailAndPassword
+    })
+  }
+
 
 }

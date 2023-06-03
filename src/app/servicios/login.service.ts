@@ -30,8 +30,11 @@ export class LoginService{
 
   registro(email: string, password: string){
     return new Promise((resolve , reject) => {
-      this.authService.createUserWithEmailAndPassword
-    })
+      this.authService.createUserWithEmailAndPassword(email,password)
+      .then(datos => resolve(datos),
+        error => reject(error)
+      )
+    });
   }
 
 

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { ToastrService } from 'ngx-toastr';
 import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
 
@@ -35,7 +36,7 @@ export class AsistenciaGeneralComponent implements OnInit{
 
 
   constructor(private asistenciaServicio: AsistenciaGeneralServicio,
-              private flashMessages: FlashMessagesService ){
+    private toastr: ToastrService, ){
 
   }
   ngOnInit() {
@@ -55,9 +56,8 @@ export class AsistenciaGeneralComponent implements OnInit{
   agregarAsistenciaGral(asistenciagralForm: NgForm){
 
     if(!asistenciagralForm.valid){
-      this.flashMessages.show('Por favor llena el formulario correctamente', {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+      this.toastr.error("Por favor llena el formulario correctamente", "Error")
+     return;
     }
     else{
       //Agregar la nueva asistencia general

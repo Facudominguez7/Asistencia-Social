@@ -62,45 +62,50 @@
             <h4>Listado de Comedores / Merenderos</h4>
           </div>
 
-          <table class="table table-striped ">
-            <thead class="table-dark">
-              <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let comedor of comedoresFiltrados; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ comedor.nombre }}</td>
-                <td>{{ comedor.direccion }}</td>
+          <div class="table-responsive">
+            <table class="table table-striped ">
+              <thead  class="thead-light th">
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Dirección</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let comedor of comedoresFiltrados; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ comedor.nombre }}</td>
+                  <td>{{ comedor.direccion }}</td>
 
-                <td class="button-container">
-                  <a
-                    routerLink="/comedor/editar/{{ comedor.id }}"
-                    class="btn btn-secondary"
-                  >
-                    <i class="fas fa-angle-double-right"></i> Editar
-                  </a>
-                  &nbsp;
+                  <td class="button-container a">
+                    <a
+                      routerLink="/comedor/editar/{{ comedor.id }}"
+                      class="btn btn-secondary"
+                    >
+                      <i class="fas fa-angle-double-right"></i> Editar
+                    </a>
+                    &nbsp;
 
-                  <a
-                    routerLink="/comedor/info/{{ comedor.id }}"
-                    class="btn btn-secondary"
-                  >
-                    <i class="fas fa-angle-double-right"></i> Info
-                  </a>
+                    <a
+                      routerLink="/comedor/info/{{ comedor.id }}"
+                      class="btn btn-secondary"
+                    >
+                      <i class="fas fa-angle-double-right"></i> Info
+                    </a>
 
-                  &nbsp;
+                    &nbsp;
 
-                 
 
-                </td>
-              </tr>
-            </tbody>
-          </table>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+
         </div>
       </div>
       <!-- Tarjeta Lateral -->
@@ -227,12 +232,16 @@
               [ngClass]="{ 'is-invalid': dni.errors && dni.touched }"
               required
               minlength="2"
+              pattern="^[0-9]+$"
             />
             <div [hidden]="!dni.errors?.['required']" class="invalid-feedback">
               DNI del responsable requerido
             </div>
             <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
               Debe conrener al menos 2 caracteres
+            </div>
+            <div [hidden]="!dni.errors?.['pattern']" class="invalid-feedback">
+              Debe contener solo números
             </div>
           </div>
 
@@ -249,6 +258,7 @@
               }"
               required
               minlength="2"
+              pattern="^[0-9]+$"
             />
             <div
               [hidden]="!numTelefono.errors?.['required']"
@@ -256,8 +266,11 @@
             >
               Numero de telefono del responsable requerido
             </div>
-            <div [hidden]="!dni.errors?.['minlength']" class="invalid-feedback">
+            <div [hidden]="!numTelefono.errors?.['minlength']" class="invalid-feedback">
               Debe contener al menos 2 caracteres
+            </div>
+            <div [hidden]="!numTelefono.errors?.['pattern']" class="invalid-feedback">
+              Debe contener solo números
             </div>
           </div>
 

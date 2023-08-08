@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { ToastrService } from 'ngx-toastr';
+import { FirebaseCodeErrorService } from 'src/app/servicios/firebaseCodeError.service';
 import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
@@ -9,34 +13,44 @@ import { LoginService } from 'src/app/servicios/login.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  email: string;
-  password: string;
+
+  loginUsuario: FormGroup;
+  loading: boolean = false;
 
   constructor(
     private router: Router,
     private flashMessages: FlashMessagesService,
-    private loginService: LoginService
-  ) {}
-
-  ngOnInit() {
-    this.loginService.getusuarioIdentificado().subscribe(auth =>{
-      if(auth){
-        this.router.navigate(['/']);
-      }
+    private loginService: LoginService,
+    private fb: FormBuilder,
+    private afAuth: AngularFireAuth,
+    private toastr: ToastrService,
+    private firebaseError: FirebaseCodeErrorService
+  ) {
+    this.loginUsuario = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, ]]
     })
   }
 
+  ngOnInit() {
+
+  }
+
   login() {
-    this.loginService
-      .login(this.email, this.password)
-      .then((res) => {
-        this.router.navigate(['/']);
-      })
-      .catch((error) => {
-        this.flashMessages.show(error.message, {
-          cssClass: 'alert-danger',
-          timeout: 4000,
-        });
-      });
+    const email = this.loginUsuario.value.email;
+    const password = this.loginUsuario.value.password;
+
+    this.loading = true;
+    this.afAuth.signInWithEmailAndPassword(email, password).then((user) => {
+
+      if(user.user?.emailVerified){
+        this.router.navigate(["/"]);
+      }else {
+        this.router.navigate(["/verificar-correo"])
+      }
+    }).catch((error) =>{
+      this.loading = false;
+      this.toastr.error(this.firebaseError.codeError(error.code), "Error");
+    })
   }
 }

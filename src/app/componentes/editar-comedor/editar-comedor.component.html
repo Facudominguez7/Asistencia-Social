@@ -25,14 +25,23 @@
             <i class="fas fa-check"></i> Guardar Comedor
           </button>
         </div>
-        <div *ngIf="usuariologueado == 'facudominguez457@gmail.com' || usuariologueado == 'pepe-olmedo@hotmail.com' " class="col-md-3">
-          <a href="# " (click)="eliminar()" class="btn btn-danger btn-block">
+
+        <div
+          *ngIf="
+            usuariologueado == 'facudominguez457@gmail.com' ||
+            usuariologueado == 'pepe-olmedo@hotmail.com'
+          "
+          class="col-md-3"
+        >
+          <a (click)="eliminar()" class="btn btn-danger btn-block">
             <i class="fas fa-trash"></i>Eliminar Comedor
           </a>
         </div>
       </div>
     </div>
   </section>
+
+  <ng-confirm></ng-confirm>
 
   <section id="details">
     <div class="container">
@@ -81,7 +90,9 @@
                   class="form-control"
                   #nombre="ngModel"
                   [(ngModel)]="comedor.nombre"
-                  [ngClass]="{ 'is-invalid': nombre.errors && nombre.touched }"
+                  [ngClass]="{
+                    'is-invalid': nombre.errors && nombre.touched
+                  }"
                   required
                   minlength="2"
                 />
@@ -243,9 +254,7 @@
               </div>
 
               <div class="form-group">
-                <label for="insumos"
-                  >Insumos</label
-                >
+                <label for="insumos">Insumos</label>
                 <input
                   type="text"
                   name="insumos"
@@ -253,8 +262,7 @@
                   #insumos="ngModel"
                   [(ngModel)]="comedor.insumos"
                   [ngClass]="{
-                    'is-invalid':
-                      insumos.errors && insumos.touched
+                    'is-invalid': insumos.errors && insumos.touched
                   }"
                   required
                   minlength="2"
@@ -273,12 +281,10 @@
                 </div>
               </div>
 
-
-
               <div class="form-group">
                 <label for="ubicacion"
-                  >Agregue el link correspondiente a la ubicación del Comedor / Merendero
-                  (Formato https://)</label
+                  >Agregue el link correspondiente a la ubicación del Comedor /
+                  Merendero (Formato https://)</label
                 >
                 <input
                   type="text"

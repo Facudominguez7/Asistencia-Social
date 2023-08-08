@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { ToastrService } from 'ngx-toastr';
 import { Comedor } from 'src/app/modelo/comedor.model';
 import { ComdeorServicio } from 'src/app/servicios/comedor.service';
 
@@ -16,8 +17,8 @@ export class ComedoresComponent implements OnInit{
     direccion: '',
     descripcion: '',
     nombreRes: '',
-    dni: '',
-    numTelefono: '',
+    dni: null,
+    numTelefono: null,
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
@@ -35,7 +36,7 @@ export class ComedoresComponent implements OnInit{
 
 
   constructor(private comedoresServicio: ComdeorServicio,
-              private flashMessages: FlashMessagesService ){
+    private toastr: ToastrService, ){
 
   }
   ngOnInit() {
@@ -43,6 +44,7 @@ export class ComedoresComponent implements OnInit{
       comedores => {
         this.comedores = comedores;
         this.comedoresFiltrados = comedores;
+        console.log(this.comedores)
       }
     );
   }
@@ -59,9 +61,8 @@ buscarPorDni(){
   agregar(comedorForm: NgForm){
 
     if(!comedorForm.valid){
-      this.flashMessages.show('Por favor llena el formulario correctamente', {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+      this.toastr.error("Debe llenar el Formulario", "Error")
+      return;
     }
     else{
       //Agregar el nuevo comedor

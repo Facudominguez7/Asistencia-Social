@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
   <div class="container">
-    <a routerLink="/" class="navbar-brand">Asistencia Social mo-so-mi</a>
+    <a routerLink="/" class="navbar-brand"> Dirección Asistencia Social</a>
     <button
       class="navbar-toggler"
       data-bs-toggle="collapse"
@@ -9,19 +9,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <li  class="nav-item" class="collapse navbar-collapse" id="navbarCollapse">
-      <a routerLink="/login" class="nav-link" routerLinkActive="router-link-active" style="color: white;" >
-        <i class="fas fa-user"></i>Login
-      </a>
 
-    </li>
-
-    <li class="nav-item" class="collapse navbar-collapse" id="navbarCollapse">
-      <a routerLink="/registrarse" class="nav-link" routerLinkActive="router-link-active" style="color: white;">
-        <i class="fas fa-user"></i>Registrarse
-      </a>
-
-    </li>
 
     <div *ngIf="estalogueado" class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav">
@@ -34,16 +22,15 @@
           <a routerLink="/asistenciasGrales" class="nav-link">Asistencia General</a>
         </li>
       </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item px-2">
+          <a routerLink="/bajas" class="nav-link">Bajas</a>
+        </li>
+      </ul>
 
       <ul class="navbar-nav ms-auto justify-content-end">
         <li *ngIf="estalogueado" class="nav-item dropdown mr-3">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            data-bs-toggle="dropdown"
-          >
-            <i class="fas fa-user"></i>Bienvenido {{usuariologueado}}
-          </a>
+
 
           <div class="dropdown-menu">
             <a class="dropdown-item" routerLink="/configuracion">
@@ -51,7 +38,16 @@
             </a>
           </div>
         </li>
-        
+
+        <li *ngIf="!estalogueado" class="nav-item" class="collapse navbar-collapse" id="navbarCollapse">
+          <a routerLink="/login" class="nav-link" routerLinkActive="router-link-active" style="color: white;" >
+            <i class="fas fa-user"></i>Login
+          </a>
+
+        </li>
+
+
+
 
         <li *ngIf="estalogueado" class="nav-item">
           <a style="cursor: pointer" (click)="logout()" class="nav-link">

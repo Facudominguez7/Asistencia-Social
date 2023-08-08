@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AsistenciaGral } from '../modelo/AsistenciaGeneral.model';
 
-
 @Injectable()
 export class AsistenciaGeneralServicio {
   asistenciageneralColleccion: AngularFirestoreCollection<AsistenciaGral>;
@@ -21,8 +20,9 @@ export class AsistenciaGeneralServicio {
   //Metodo conectar base de datos
   constructor(private db: AngularFirestore) {
     //recuperar coleccion de comedores
-    this.asistenciageneralColleccion = db.collection('asistenciageneral', (ref) =>
-      ref.orderBy('nombre', 'asc')
+    this.asistenciageneralColleccion = db.collection(
+      'asistenciageneral',
+      (ref) => ref.orderBy('nombre', 'asc')
     );
   }
 
@@ -37,15 +37,17 @@ export class AsistenciaGeneralServicio {
   //Solicitud datos de asistencias generales pidiendo id (regresa objeto de tipo asistencia general)
   getAsistenciasGenerales(): Observable<AsistenciaGral[]> {
     //Obtener las Asistencias Generales
-    this.asistenciasGenerales = this.asistenciageneralColleccion.snapshotChanges().pipe(
-      map((cambios) => {
-        return cambios.map((accion) => {
-          const datos = accion.payload.doc.data() as AsistenciaGral;
-          datos.id = accion.payload.doc.id;
-          return datos;
-        });
-      })
-    );
+    this.asistenciasGenerales = this.asistenciageneralColleccion
+      .snapshotChanges()
+      .pipe(
+        map((cambios) => {
+          return cambios.map((accion) => {
+            const datos = accion.payload.doc.data() as AsistenciaGral;
+            datos.id = accion.payload.doc.id;
+            return datos;
+          });
+        })
+      );
     return this.asistenciasGenerales;
   }
 
@@ -55,31 +57,31 @@ export class AsistenciaGeneralServicio {
 
   getAsistenciaGeneral(id: string): Observable<AsistenciaGral> {
     //recuperar asistencia general de la base de datos
-    this.asistenciaGDoc = this.db.doc<AsistenciaGral>(`asistenciageneral/${id}`);
+    this.asistenciaGDoc = this.db.doc<AsistenciaGral>(
+      `asistenciageneral/${id}`
+    );
     //recuperar objeto tipo asistencia general (observable)
-     return this.asistenciaGeneral = this.asistenciaGDoc.snapshotChanges().pipe(
-      map( accion=> {
+    return (this.asistenciaGeneral = this.asistenciaGDoc.snapshotChanges().pipe(
+      map((accion) => {
         if (accion.payload.exists === false) {
           return null;
-        }
-        else {
+        } else {
           const datos: AsistenciaGral = accion.payload.data();
           datos.id = accion.payload.id;
           return datos as any;
         }
       })
-    );
-
-
+    ));
   }
 
-  modificarAsistenciaGral(asistencia: AsistenciaGral){
-      this.asistenciaGDoc = this.db.doc(`asistenciageneral/${asistencia.id}`);
-      this.asistenciaGDoc.update(asistencia);
-  }
-
-  eliminarAsistenciaGeneral(asistencia: AsistenciaGral){
+  modificarAsistenciaGral(asistencia: AsistenciaGral) {
     this.asistenciaGDoc = this.db.doc(`asistenciageneral/${asistencia.id}`);
-    this.asistenciaGDoc.delete();
+    this.asistenciaGDoc.update(asistencia);
+  }
+
+  eliminarAsistenciaGeneral(asistencia: AsistenciaGral) {
+    let collectionRef = this.db.collection('asistenciageneral');
+    let id = asistencia.id;
+    collectionRef.doc(id).delete();
   }
 }

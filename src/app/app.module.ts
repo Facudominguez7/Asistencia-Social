@@ -8,7 +8,10 @@ import {
 } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +37,16 @@ import { InsumoComedorComponent } from './componentes/insumo-comedor/insumo-come
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { InsumosServicio } from './servicios/insumos.service';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { VerificarCorreoComponent } from './componentes/verificar-correo/verificar-correo.component';
+import { RecuperarPasswordComponent } from './componentes/recuperar-password/recuperar-password.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { BajasComponent } from './componentes/bajas/bajas.component';
+import { TableroBajasComponent } from './componentes/tablero-bajas/tablero-bajas.component';
+import { BajasService } from './servicios/bajas.service';
+import { NgConfirmModule } from 'ng-confirm-box';
+import { EditarBajasComponent } from './componentes/editar-bajas/editar-bajas.component';
+import { InfoBajasComponent } from './componentes/info-bajas/info-bajas.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +65,14 @@ import { RegistroComponent } from './componentes/registro/registro.component';
     AsistenciaGeneralComponent,
     InsumoComedorComponent,
     RegistroComponent,
+    VerificarCorreoComponent,
+    RecuperarPasswordComponent,
+    SpinnerComponent,
+    BajasComponent,
+    TableroBajasComponent,
+    EditarBajasComponent,
+    InfoBajasComponent,
+
 
 
   ],
@@ -64,9 +85,13 @@ import { RegistroComponent } from './componentes/registro/registro.component';
     FormsModule,
     FlashMessagesModule.forRoot(),
     AngularFireStorageModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
+    NgConfirmModule
 
   ],
-  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio],
+  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio, BajasService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

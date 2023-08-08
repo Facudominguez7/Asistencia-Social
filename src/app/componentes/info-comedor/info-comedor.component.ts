@@ -22,8 +22,8 @@ export class InfoComedorComponent implements OnInit {
     direccion: '',
     descripcion: '',
     nombreRes: '',
-    dni: '',
-    numTelefono: '',
+    dni: null,
+    numTelefono: null,
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
@@ -33,8 +33,6 @@ export class InfoComedorComponent implements OnInit {
 
   constructor(
     private comedoresServicio: ComdeorServicio,
-    private flashMessages: FlashMessagesService,
-    private router: Router,
     private route: ActivatedRoute
   ) {}
 

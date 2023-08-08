@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.2.0",
+    "@angular/animations": "^15.2.9",
     "@angular/common": "^15.2.0",
     "@angular/compiler": "^15.2.0",
     "@angular/core": "^15.2.0",
@@ -28,6 +28,8 @@
     "jquery": "^3.6.4",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
+    "ng-confirm-box": "^0.1.1",
+    "ngx-toastr": "^17.0.2",
     "node-firestore-import-export": "^1.1.0",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",

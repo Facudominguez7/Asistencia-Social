@@ -2,9 +2,11 @@ import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/c
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { ToastrService } from 'ngx-toastr';
 import { Comedor } from 'src/app/modelo/comedor.model';
 import { ComdeorServicio } from 'src/app/servicios/comedor.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import {  NgConfirmService } from 'ng-confirm-box';
 
 @Injectable()
 @Component({
@@ -20,8 +22,8 @@ export class EditarComedorComponent implements OnInit {
     direccion: '',
     descripcion: '',
     nombreRes: '',
-    dni: '',
-    numTelefono: '',
+    dni: null,
+    numTelefono: null,
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
@@ -31,6 +33,8 @@ export class EditarComedorComponent implements OnInit {
 
   };
 
+  delete: boolean = false;
+
   id:string;
   @ViewChild("comedorForm") comedorForm: NgForm;
   @ViewChild("botonCerrar") botonCerrar: ElementRef;
@@ -38,10 +42,11 @@ export class EditarComedorComponent implements OnInit {
 
   constructor(
     private comedoresServicio: ComdeorServicio,
-    private flashMessages: FlashMessagesService,
+    private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private confirmService: NgConfirmService
   ) {}
 
   ngOnInit(){
@@ -65,9 +70,8 @@ export class EditarComedorComponent implements OnInit {
 
   guardar(comedorForm: NgForm){
     if(!comedorForm.valid){
-      this.flashMessages.show('Por favor llena el formulario correctamente', {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+     this.toastr.error("Por favor llena el formulario correctamente", "Error")
+     return;
     }
     else{
       comedorForm.value.id = this.id;
@@ -81,9 +85,8 @@ export class EditarComedorComponent implements OnInit {
   editarDescripcion(comedorForm: NgForm){
 
     if(!comedorForm.valid){
-      this.flashMessages.show('Por favor llena el formulario correctamente', {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+      this.toastr.error("Por favor llena el formulario correctamente", "Error");
+     return;
     }
     else{
       //Agregar el nuevo comedor
@@ -101,9 +104,20 @@ export class EditarComedorComponent implements OnInit {
 
 
   eliminar(){
-    if(confirm('Seguro que desea eliminar el comedor?')){
+    this.confirmService.showConfirm("Estas seguro que deseas eliminar?",
+    () =>{
+      
       this.comedoresServicio.eliminarComedor(this.comedor);
-      this.router.navigate(['/']);
-    }
+      this.router.navigate(["/"]);
+
+    },
+    ()=>{
+
+
+
+      this.router.navigate(["/comedor/editar/:id"]);
+
+    })
+
   }
 }

@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { NgConfirmService } from 'ng-confirm-box';
+import { ToastrService } from 'ngx-toastr';
 import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -35,10 +37,11 @@ export class EditarAsistenciaGeneralComponent {
 
   constructor(
     private asistenciasServicio: AsistenciaGeneralServicio,
-    private flashMessages: FlashMessagesService,
+    private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private confirmService: NgConfirmService
   ) {}
 
   ngOnInit(){
@@ -58,14 +61,13 @@ export class EditarAsistenciaGeneralComponent {
         this.usuariologueado = auth.email ?? '';
       }
     })
-    
+
   }
 
   guardar(asistenciagralForm: NgForm){
     if(!asistenciagralForm.valid){
-      this.flashMessages.show('Por favor llena el formulario correctamente', {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+      this.toastr.error("Por favor llena el formulario correctamente", "Error")
+     return;
     }
     else{
       asistenciagralForm.value.id = this.id;
@@ -79,9 +81,8 @@ export class EditarAsistenciaGeneralComponent {
   editarDescripcion(asistenciagralForm: NgForm){
 
     if(!this.asistenciagralForm.valid){
-      this.flashMessages.show('Por favor llena el formulario correctamente', {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+     this.toastr.error("Por favor llena el formulario correctamente", "Error")
+     return;
     }
     else{
       //Agregar la nueva asistencia
@@ -99,10 +100,17 @@ export class EditarAsistenciaGeneralComponent {
 
 
   eliminar(){
-    if(confirm('Seguro que desea eliminar la asistencia?')){
+    this.confirmService.showConfirm("Estas seguro que deseas eliminar?",
+    () =>{
       this.asistenciasServicio.eliminarAsistenciaGeneral(this.asistenciaGral);
-      this.router.navigate(['/asistenciasGrales']);
-    }
+      this.router.navigate(["/asistenciasGrales"]);
+
+    },
+    ()=>{
+
+      this.router.navigate(["/asistenciaGral/editar/:id"]);
+
+    })
   }
 
 }

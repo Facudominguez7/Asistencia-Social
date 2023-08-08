@@ -19,8 +19,8 @@ export class InsumoComedorComponent implements OnInit{
     direccion: '',
     descripcion: '',
     nombreRes: '',
-    dni: '',
-    numTelefono: '',
+    dni: null,
+    numTelefono: null,
     diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
@@ -28,7 +28,7 @@ export class InsumoComedorComponent implements OnInit{
 
   };
   id: string;
- 
+
 
 
 

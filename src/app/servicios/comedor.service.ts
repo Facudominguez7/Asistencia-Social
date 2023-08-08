@@ -106,8 +106,9 @@ export class ComdeorServicio {
 
 
   eliminarComedor(comedor: Comedor){
-    this.comedorDoc = this.db.doc(`comedores/${comedor.id}`);
-    this.comedorDoc.delete();
+    let collectionRef = this.db.collection('comedores');
+    let id = comedor.id;
+    collectionRef.doc(id).delete();
   }
 
   agregarExcel(comedorId: string, archivo: File) {

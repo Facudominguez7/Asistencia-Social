@@ -3,7 +3,6 @@
   flex-direction: row;
  }
 
-
  @media (max-width: 768px) {
   .button-container {
   flex-direction: column;
@@ -77,7 +76,7 @@
   margin-right: 4px;
  }
 
-/* Estilo de los inputs */
+ /* Estilo de los inputs */
 input {
   border: none; /* Quitar el borde */
   border-radius: 20px; /* Darle un borde redondeado */
@@ -110,9 +109,4 @@ input {
  .fa {
   margin-right: 4px;
  }
-
-
-
-
-
 

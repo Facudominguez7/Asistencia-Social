@@ -62,9 +62,9 @@
             <h4>Listado de Comedores / Merenderos</h4>
           </div>
 
-          <div class="table-responsive">
+
             <table class="table table-striped ">
-              <thead  class="thead-light th">
+              <thead  class="thead-dark">
                 <tr>
                   <th>#</th>
                   <th>Nombre</th>
@@ -78,7 +78,7 @@
                   <td>{{ comedor.nombre }}</td>
                   <td>{{ comedor.direccion }}</td>
 
-                  <td class="button-container a">
+                  <td class="button-container">
                     <a
                       routerLink="/comedor/editar/{{ comedor.id }}"
                       class="btn btn-secondary"
@@ -103,7 +103,7 @@
               </tbody>
             </table>
 
-          </div>
+
 
 
         </div>
@@ -135,7 +135,7 @@
         </button>
       </div>
 
-      <flash-messages></flash-messages>
+
 
       <form #comedorForm="ngForm" (ngSubmit)="agregar(comedorForm)">
         <div class="modal-body">

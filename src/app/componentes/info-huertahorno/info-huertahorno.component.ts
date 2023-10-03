@@ -1,64 +1,57 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Comedor } from 'src/app/modelo/comedor.model';
-import { ComdeorServicio } from 'src/app/servicios/comedor.service';
-import { ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import html2pdf from 'html2pdf.js';
-import { type } from 'os';
 import { ToastrService } from 'ngx-toastr';
+import { HornosHuertas } from 'src/app/modelo/hornos-huertas.model';
+import { HornosHuertasService } from 'src/app/servicios/Hornos-huertas.service';
 
 @Component({
-  selector: 'app-info-comedor',
-  templateUrl: './info-comedor.component.html',
-  styleUrls: ['./info-comedor.component.css'],
+  selector: 'app-info-huertahorno',
+  templateUrl: './info-huertahorno.component.html',
+  styleUrls: ['./info-huertahorno.component.css'],
 })
-export class InfoComedorComponent implements OnInit {
-  comedores?: Comedor[];
-  comedor: Comedor = {
+export class InfoHuertahornoComponent implements OnInit {
+  hornohuertas?: HornosHuertas[];
+  hornohuerta: HornosHuertas = {
     nombre: '',
     direccion: '',
     descripcion: '',
     nombreRes: '',
     dni: null,
     numTelefono: null,
-    diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
-    insumos: '',
   };
   id: string;
 
   constructor(
-    private comedoresServicio: ComdeorServicio,
+    private hornoshuertasServicio: HornosHuertasService,
     private route: ActivatedRoute,
     private toastr: ToastrService
   ) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    //recuperar comedor con su respectivo id
-    this.comedoresServicio.getComedor(this.id).subscribe((comedor) => {
-      this.comedor = comedor;
+    //Recuperar baja con su respectivo id
+    this.hornoshuertasServicio.getHornoHuerta(this.id).subscribe((hornohuerta) => {
+      this.hornohuerta = hornohuerta;
     });
   }
 
-  guardar(comedorForm: NgForm, event: Event) {
+  guardar(hornohuertaForm: NgForm, event: Event) {
     event.preventDefault();
-    comedorForm.value.id = this.id;
-    //modificar el comedor
-    this.comedoresServicio.modificarComedor(comedorForm.value);
-    this.toastr.success("Se ha guardado el Comedor / Merendero correctamente", "Éxito");
+    hornohuertaForm.value.id = this.id;
+    //Modificar la baja
+    this.hornoshuertasServicio.modificarHornoHuerta(hornohuertaForm.value);
+    this.toastr.success('Se ha guardado correctamente', 'Exito');
+    return;
   }
 
-
-
-
-
-   generarPDF() {
-    const element = document.getElementById('info descripcion') as HTMLTextAreaElement;
+  generarPDF() {
+    const element = document.getElementById(
+      'info descripcion'
+    ) as HTMLTextAreaElement;
     const ulElement = document.getElementById('ul-info');
 
     const doc = new jsPDF('p', 'pt', 'a4');
@@ -70,13 +63,13 @@ export class InfoComedorComponent implements OnInit {
       let startY = bufferY;
       let currentPage = 1;
 
-      function encabezado(){
+      function encabezado() {
         doc.setFontSize(16);
-        doc.setFont('fontFamily' , 'fontStyle');
+        doc.setFont('fontFamily', 'fontStyle');
         doc.text(
           'Director Rolando Olmedo' +
-          '                                                     '+
-          'Dirección de Asistencia Social',
+            '                                                     ' +
+            'Dirección de Asistencia Social',
           bufferX,
           startY
         );
@@ -88,26 +81,28 @@ export class InfoComedorComponent implements OnInit {
       encabezado();
 
       // Agregar el contenido de "ul-info"
-      const liElements = Array.from(ulElement.getElementsByTagName('li')) as HTMLLIElement[];
+      const liElements = Array.from(
+        ulElement.getElementsByTagName('li')
+      ) as HTMLLIElement[];
       let pdfWidth: number = doc.internal.pageSize.getWidth() - 2 * bufferX;
       const pdfHeight = doc.internal.pageSize.getHeight() - 20;
 
       for (let li of liElements) {
-          const text = li.textContent || '';
-          const lines = doc.splitTextToSize(text, pdfWidth);
+        const text = li.textContent || '';
+        const lines = doc.splitTextToSize(text, pdfWidth);
 
-          for(let line of lines) {
-            if(startY + lineHeight > pdfHeight) {
-              doc.addPage();
-              currentPage++;
-              startY = bufferY;
-              encabezado();
-            }
-
-            doc.setFontSize(12);
-            doc.text(line, bufferX, startY + lineHeight);
-            startY += lineHeight;
+        for (let line of lines) {
+          if (startY + lineHeight > pdfHeight) {
+            doc.addPage();
+            currentPage++;
+            startY = bufferY;
+            encabezado();
           }
+
+          doc.setFontSize(12);
+          doc.text(line, bufferX, startY + lineHeight);
+          startY += lineHeight;
+        }
       }
 
       // Agregar el texto de "info descripcion" como un elemento de texto separado en el PDF
@@ -138,5 +133,4 @@ export class InfoComedorComponent implements OnInit {
       doc.save(`Información de Comedor / Merendero.pdf`);
     }
   }
-
 }

@@ -77,6 +77,7 @@ export class EditarComedorComponent implements OnInit {
       //modificar el comedor
       this.comedoresServicio.modificarComedor(comedorForm.value);
       this.router.navigate(['/']);
+      this.toastr.success("Se ha modificado el Comedor / Merendero correctamente", "Éxito");
 
     }
   }
@@ -108,6 +109,7 @@ export class EditarComedorComponent implements OnInit {
 
       this.comedoresServicio.eliminarComedor(this.comedor);
       this.router.navigate(["/"]);
+      this.toastr.success("Se ha eliminado el Comedor / Merendero correctamente", "Éxito");
 
     },
     ()=>{

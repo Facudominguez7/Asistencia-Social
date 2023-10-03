@@ -73,6 +73,7 @@ export class EditarAsistenciaGeneralComponent {
       //modificar el comedor
       this.asistenciasServicio.modificarAsistenciaGral(asistenciagralForm.value);
       this.router.navigate(['asistenciasGrales']);
+      this.toastr.success("Se ha modificado la Asistencia correctamente", "Éxito");
 
     }
   }
@@ -103,6 +104,7 @@ export class EditarAsistenciaGeneralComponent {
     () =>{
       this.asistenciasServicio.eliminarAsistenciaGeneral(this.asistenciaGral);
       this.router.navigate(["/asistenciasGrales"]);
+      this.toastr.success("Se ha eliminado la Asistencia correctamente", "Éxito");
 
     },
     ()=>{

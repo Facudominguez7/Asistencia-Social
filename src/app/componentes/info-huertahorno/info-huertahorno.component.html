@@ -1,0 +1,133 @@
+<header id="main-header" class="py-2 bg-success text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><i class="fa-solid fa-circle-info"> </i> Información</h1>
+      </div>
+    </div>
+  </div>
+</header>
+<form #hornohuertaForm="ngForm" (ngSubmit)="guardar(hornohuertaForm, $event)">
+
+  <!--Botones-->
+  <section id="actions" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <a routerLink="/hornohuerta" class="btn btn-light btn-block">
+            <i class="fas fa-arrow-left"></i>Regresar al inicio
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a
+            [href]="
+              hornohuerta.ubicacion.startsWith('http')
+                ? hornohuerta.ubicacion + '&amp;geo'
+                : 'https://www.google.com/maps/search/?api=1&amp;query=' +
+                  hornohuerta.ubicacion +
+                  '&amp;geo'
+            "
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Ver ubicación en Google Maps
+          </a>
+        </div>
+        <div class="col-md-3">
+          <button
+            type="button"
+            class="btn btn-success btn-block"
+            (click)="generarPDF()"
+          >
+            <i></i>Generar PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bajas">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-15">
+          <div class="card">
+            <div class="card-header">
+              <h4>Información</h4>
+            </div>
+
+            <ul
+              class="list-group list-group-flush"
+              id="ul-info"
+              style="font-size: 16pt"
+            >
+              <li class="list-group-item">
+                <b>Actividades que realiza:</b>
+                {{ hornohuerta.actividadRealiza }}
+              </li>
+              <li class="list-group-item">
+                <b>Nombre:</b> {{ hornohuerta.nombre }}
+              </li>
+              <li class="list-group-item">
+                <b>Dirección:</b> {{ hornohuerta.direccion }}
+              </li>
+              <li class="list-group-item">
+                <b>Nombre de responsable:</b> {{ hornohuerta.nombreRes }}
+              </li>
+              <li class="list-group-item">
+                <b>DNI del responsable:</b> {{ hornohuerta.dni }}
+              </li>
+              <li class="list-group-item">
+                <b>Número de telefono del responsable:</b>
+                {{ hornohuerta.numTelefono }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="Información Baja">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="descripcion">Agregue notas aquí</label>
+                <textarea
+                  id="info descripcion"
+                  type="text"
+                  name="descripcion"
+                  class="form-control"
+                  #descripcion="ngModel"
+                  [(ngModel)]="hornohuerta.descripcion"
+                  required
+                  minlength="2"
+                  style="height: 400px; resize: vertical"
+                ></textarea>
+                <div
+                  [hidden]="!descripcion.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <button type="submit" class="btn btn-success btn-block">
+                <i class="fas fa-check"></i> Guardar Asistencia
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+</form>
+
+

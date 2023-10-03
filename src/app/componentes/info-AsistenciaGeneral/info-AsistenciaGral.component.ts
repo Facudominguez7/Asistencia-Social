@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
+import { ToastrService } from 'ngx-toastr';
 import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
 
@@ -30,7 +31,8 @@ export class InfoAsistenciaGralComponent {
   constructor(
     private asistenciagralServicio: AsistenciaGeneralServicio,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
 
   @ViewChild('asistenciagralForm') asistenciagralForm: NgForm;
@@ -48,6 +50,7 @@ export class InfoAsistenciaGralComponent {
     asistenciagralForm.value.id = this.id;
     //modificar el comedor
     this.asistenciagralServicio.modificarAsistenciaGral(asistenciagralForm.value);
+    this.toastr.success("Se ha guardado la asistencia correctamente", "Éxito");
 
   }
 

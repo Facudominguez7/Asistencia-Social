@@ -1,0 +1,112 @@
+.button-container {
+  display: flex;
+  flex-direction: row;
+ }
+
+ @media (max-width: 768px) {
+  .button-container {
+  flex-direction: column;
+  }
+ }
+
+ @media (max-width: 767px) {
+  .btn-secondary {
+  font-size: 14px;
+  padding: 0.25rem 0.5rem;
+  }
+ }
+
+ /* Estilo general de la tabla */
+ .table {
+  border-collapse: collapse;
+  width: 100%;
+ }
+
+ /* Estilo de las celdas */
+ .table td, .table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+ }
+
+ /* Estilo del encabezado */
+ .table th {
+  background-color: #333333; /* Cambiar el color a un negro */
+  color: white;
+ }
+
+ /* Estilo de los botones */
+/* Estilo de los botones */
+.button-container a {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 4px;
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+ }
+ /* Color de los botones al pasar el mouse */
+ .button-container a:hover {
+  opacity: 0.8; /* Cambiar el efecto a una opacidad menor */
+ }
+
+ /* Color de los botones de editar */
+ .button-container a:nth-child(1) {
+  background-color: #555555; /* Cambiar el color a un gris medio */
+ }
+
+ /* Color de los botones de info */
+ .button-container a:nth-child(2) {
+  background-color: #666666; /* Cambiar el color a un gris oscuro */
+ }
+
+ /* Estilo del botón primario */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+ }
+
+ /* Estilo del botón primario al pasar el mouse */
+ .btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+ }
+
+ /* Estilo del icono de fontawesome */
+ .fas {
+  margin-right: 4px;
+ }
+
+ /* Estilo de los inputs */
+input {
+  border: none; /* Quitar el borde */
+  border-radius: 20px; /* Darle un borde redondeado */
+  padding: 8px 16px; /* Aumentar el relleno */
+  outline: none; /* Quitar el contorno */
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Agregar una sombra interna */
+  background-color: #f0f0f0; /* Cambiar el color de fondo a un gris claro */
+  /* Agregar un efecto de transición suave */
+  transition: all 0.3s ease-in-out;
+ }
+
+ /* Estilo de los inputs al enfocarse */
+ input:focus {
+  /* Cambiar el color de la sombra externa a negro */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+ }
+
+ /* Estilo de los botones de búsqueda */
+ .btn-success {
+  border-radius: 20px; /* Darle un borde redondeado */
+ }
+
+ /* Estilo de los botones de búsqueda al pasar el mouse */
+ .btn-success:hover {
+  background-color: #186c2b; /* Cambiar el color de fondo a un verde aún más oscuro */
+  border-color: #186c2b; /* Cambiar el color del borde a un verde aún más oscuro */
+ }
+
+ /* Estilo del icono de fontawesome */
+ .fa {
+  margin-right: 4px;
+ }
+

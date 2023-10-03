@@ -45,6 +45,11 @@ import { BajasService } from './servicios/bajas.service';
 import { NgConfirmModule } from 'ng-confirm-box';
 import { EditarBajasComponent } from './componentes/editar-bajas/editar-bajas.component';
 import { InfoBajasComponent } from './componentes/info-bajas/info-bajas.component';
+import { TableroHornosHuertasComponent } from './componentes/tablero-hornos/huertas/huertas.component';
+import { HornosHuertasComponent } from './componentes/hornos-huertas/hornos-huertas.component';
+import { HornosHuertasService } from './servicios/Hornos-huertas.service';
+import { EditarHuertahornoComponent } from './componentes/editar-huertahorno/editar-huertahorno.component';
+import { InfoHuertahornoComponent } from './componentes/info-huertahorno/info-huertahorno.component';
 
 
 @NgModule({
@@ -71,6 +76,10 @@ import { InfoBajasComponent } from './componentes/info-bajas/info-bajas.componen
     TableroBajasComponent,
     EditarBajasComponent,
     InfoBajasComponent,
+    HornosHuertasComponent,
+    TableroHornosHuertasComponent,
+    EditarHuertahornoComponent,
+    InfoHuertahornoComponent
 
 
 
@@ -89,7 +98,7 @@ import { InfoBajasComponent } from './componentes/info-bajas/info-bajas.componen
     NgConfirmModule
 
   ],
-  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio, BajasService],
+  providers: [AsistenciaGeneralServicio, ComdeorServicio, LoginService, AuthGuard, InsumosServicio, BajasService, HornosHuertasService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -7,9 +7,9 @@
           href="#"
           class="btn btn-primary btn-block"
           data-bs-toggle="modal"
-          data-bs-target="#agregarBajaModal"
+          data-bs-target="#agregarHornoHuertaModal"
         >
-          <i class="fas fa-plus"></i>Agregar Baja
+          <i class="fas fa-plus"></i>Agregar Establecimiento
         </a>
       </div>
     </div>
@@ -59,7 +59,7 @@
       <div class="col-md-9">
         <div class="card">
           <div class="card-header">
-            <h4>Listado de Bajas</h4>
+            <h4>Listado de Establecimientos</h4>
           </div>
             <table class="table table-striped ">
               <thead  class="thead-dark">
@@ -71,14 +71,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let baja of bajasFiltradas; let i = index">
+                <tr *ngFor="let hornohuerta of hornoshuertasFiltradas; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ baja.nombre }}</td>
-                  <td>{{ baja.direccion }}</td>
+                  <td>{{ hornohuerta.nombre }}</td>
+                  <td>{{ hornohuerta.direccion }}</td>
 
                   <td class="button-container ">
                     <a
-                      routerLink="/baja/editar/{{ baja.id }}"
+                      routerLink="/hornohuerta/editar/{{ hornohuerta.id }}"
                       class="btn btn-secondary"
                     >
                       <i class="fas fa-angle-double-right"></i> Editar
@@ -86,7 +86,7 @@
                     &nbsp;
 
                     <a
-                      routerLink="/baja/info/{{ baja.id }}"
+                      routerLink="/hornohuerta/info/{{ hornohuerta.id }}"
                       class="btn btn-secondary"
                     >
                       <i class="fas fa-angle-double-right"></i> Info
@@ -107,9 +107,9 @@
       <div class="col-md-3">
         <div class="card text-center bg-success text-white mb-3">
           <div class="card-body">
-            <h3>Total Bajas</h3>
+            <h3>Total Establecimientos</h3>
             <h4 class="display-4">
-              <i class="fas fa-house"></i> {{ bajas?.length }}
+              <i class="fas fa-house"></i> {{ hornoshuertas?.length }}
             </h4>
           </div>
         </div>
@@ -120,17 +120,17 @@
 </section>
 
 <!--Agregar baja modal-->
-<div class="modal fade" id="agregarBajaModal">
+<div class="modal fade" id="agregarHornoHuertaModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title">Agregar Baja</h5>
+        <h5 class="modal-title">Agregar Establecimiento</h5>
         <button class="close" data-bs-dismiss="modal" #botonCerrar>
           <span>&times;</span>
         </button>
       </div>
 
-      <form #bajaForm="ngForm" (ngSubmit)="agregar(bajaForm)">
+      <form #hornohuertaForm="ngForm" (ngSubmit)="agregar(hornohuertaForm)">
         <div class="modal-body">
           <div class="form-group">
             <label for="nombre">Nombre</label>
@@ -139,7 +139,7 @@
               name="nombre"
               class="form-control"
               #nombre="ngModel"
-              [(ngModel)]="baja.nombre"
+              [(ngModel)]="hornohuerta.nombre"
               [ngClass]="{ 'is-invalid': nombre.errors && nombre.touched }"
               required
               minlength="2"
@@ -165,7 +165,7 @@
               name="direccion"
               class="form-control"
               #direccion="ngModel"
-              [(ngModel)]="baja.direccion"
+              [(ngModel)]="hornohuerta.direccion"
               [ngClass]="{
                 'is-invalid': direccion.errors && direccion.touched
               }"
@@ -193,7 +193,7 @@
               name="nombreRes"
               class="form-control"
               #nombreRes="ngModel"
-              [(ngModel)]="baja.nombreRes"
+              [(ngModel)]="hornohuerta.nombreRes"
               [ngClass]="{
                 'is-invalid': nombreRes.errors && nombreRes.touched
               }"
@@ -221,7 +221,7 @@
               name="dni"
               class="form-control"
               #dni="ngModel"
-              [(ngModel)]="baja.dni"
+              [(ngModel)]="hornohuerta.dni"
               [ngClass]="{ 'is-invalid': dni.errors && dni.touched }"
               required
               minlength="2"
@@ -245,7 +245,7 @@
               name="numTelefono"
               class="form-control"
               #numTelefono="ngModel"
-              [(ngModel)]="baja.numTelefono"
+              [(ngModel)]="hornohuerta.numTelefono"
               [ngClass]="{
                 'is-invalid': numTelefono.errors && numTelefono.touched
               }"
@@ -268,44 +268,13 @@
           </div>
 
           <div class="form-group">
-            <label for="diahorarioCocina"
-              >Días y horarios de la actividad</label
-            >
-            <input
-              type="text"
-              name="diahorarioCocina"
-              class="form-control"
-              #diahorarioCocina="ngModel"
-              [(ngModel)]="baja.diahorarioCocina"
-              [ngClass]="{
-                'is-invalid':
-                  diahorarioCocina.errors && diahorarioCocina.touched
-              }"
-              required
-              minlength="2"
-            />
-            <div
-              [hidden]="!diahorarioCocina.errors?.['required']"
-              class="invalid-feedback"
-            >
-              Dia y horario de cocina requerido
-            </div>
-            <div
-              [hidden]="!diahorarioCocina.errors?.['minlength']"
-              class="invalid-feedback"
-            >
-              Debe contener al menos 2 caracteres
-            </div>
-          </div>
-
-          <div class="form-group">
             <label for="actividadRealiza">Que actividad realiza</label>
             <input
               type="text"
               name="actividadRealiza"
               class="form-control"
               #actividadRealiza="ngModel"
-              [(ngModel)]="baja.actividadRealiza"
+              [(ngModel)]="hornohuerta.actividadRealiza"
               [ngClass]="{
                 'is-invalid':
                   actividadRealiza.errors && actividadRealiza.touched
@@ -328,44 +297,16 @@
           </div>
 
           <div class="form-group">
-            <label for="insumos">Insumos</label>
-            <input
-              type="text"
-              name="insumos"
-              class="form-control"
-              #insumos="ngModel"
-              [(ngModel)]="baja.insumos"
-              [ngClass]="{
-                'is-invalid': insumos.errors && insumos.touched
-              }"
-              required
-              minlength="2"
-            />
-            <div
-              [hidden]="!insumos.errors?.['required']"
-              class="invalid-feedback"
-            >
-              Insumo requerido
-            </div>
-            <div
-              [hidden]="!insumos.errors?.['minlength']"
-              class="invalid-feedback"
-            >
-              Debe contener al menos 2 caracteres
-            </div>
-          </div>
-
-          <div class="form-group">
             <label for="ubicacion"
-              >Agregue el link correspondiente a la ubicación del Comedor /
-              Merendero (Formato https://)</label
+              >Agregue el link correspondiente a la ubicación del Horno /
+              Huerta (Formato https://)</label
             >
             <input
               type="text"
               name="ubicacion"
               class="form-control"
               #ubicacion="ngModel"
-              [(ngModel)]="baja.ubicacion"
+              [(ngModel)]="hornohuerta.ubicacion"
               [ngClass]="{
                 'is-invalid': ubicacion.errors && ubicacion.touched
               }"
@@ -394,4 +335,5 @@
     </div>
   </div>
 </div>
+
 

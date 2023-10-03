@@ -16,6 +16,9 @@ import { RecuperarPasswordComponent } from './componentes/recuperar-password/rec
 import { TableroBajasComponent } from './componentes/tablero-bajas/tablero-bajas.component';
 import { EditarBajasComponent } from './componentes/editar-bajas/editar-bajas.component';
 import { InfoBajasComponent } from './componentes/info-bajas/info-bajas.component';
+import { TableroHornosHuertasComponent } from './componentes/tablero-hornos/huertas/huertas.component';
+import { EditarHuertahornoComponent } from './componentes/editar-huertahorno/editar-huertahorno.component';
+import { InfoHuertahornoComponent } from './componentes/info-huertahorno/info-huertahorno.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,6 +27,9 @@ const routes: Routes = [
   {path: 'recuperar-password', component: RecuperarPasswordComponent},
   {path:'', component: TableroComedoresComponent, canActivate: [AuthGuard]},
   {path:'asistenciasGrales', component: TableroAsistenciaGeneral, canActivate: [AuthGuard]},
+  {path: 'hornohuerta', component: TableroHornosHuertasComponent, canActivate: [AuthGuard]},
+  {path: 'hornohuerta/editar/:id', component: EditarHuertahornoComponent, canActivate: [AuthGuard]},
+  {path: 'hornohuerta/info/:id', component: InfoHuertahornoComponent, canActivate: [AuthGuard]},
   {path: 'bajas', component: TableroBajasComponent, canActivate: [AuthGuard]},
   {path: 'baja/editar/:id', component: EditarBajasComponent, canActivate: [AuthGuard]},
   {path: 'baja/info/:id', component: InfoBajasComponent, canActivate: [AuthGuard]},

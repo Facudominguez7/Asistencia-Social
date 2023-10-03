@@ -3,40 +3,36 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgConfirmService } from 'ng-confirm-box';
 import { ToastrService } from 'ngx-toastr';
-import { Baja } from 'src/app/modelo/bajas.model';
-import { BajasService } from 'src/app/servicios/bajas.service';
+import { HornosHuertas } from 'src/app/modelo/hornos-huertas.model';
+import { HornosHuertasService } from 'src/app/servicios/Hornos-huertas.service';
 import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
-  selector: 'app-editar-bajas',
-  templateUrl: './editar-bajas.component.html',
-  styleUrls: ['./editar-bajas.component.css']
+  selector: 'app-editar-huertahorno',
+  templateUrl: './editar-huertahorno.component.html',
+  styleUrls: ['./editar-huertahorno.component.css']
 })
-export class EditarBajasComponent {
+export class EditarHuertahornoComponent {
+
   usuariologueado: string;
-  bajas?: Baja[];
-  baja: Baja = {
+  hornoshuertas?: HornosHuertas[];
+  hornohuerta: HornosHuertas = {
     nombre: '',
     direccion: '',
     descripcion: '',
     nombreRes: '',
     dni: null,
     numTelefono: null,
-    diahorarioCocina: '',
     ubicacion: '',
     actividadRealiza: '',
-    insumos: '',
-
-
-
   };
 
   id:string;
-  @ViewChild("bajaForm") bajaForm: NgForm;
+  @ViewChild("hornohuertaForm") hornohuertaForm: NgForm;
   @ViewChild("botonCerrar") botonCerrar: ElementRef;
 
   constructor(
-    private bajaServicio: BajasService,
+    private hornohuertaServicio: HornosHuertasService,
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
@@ -47,13 +43,13 @@ export class EditarBajasComponent {
   ngOnInit(){
     this.id = this.route.snapshot.params['id'];
     //recuperar asistencia general con su respectivo id
-    this.bajaServicio.getBaja(this.id).subscribe(baja => {
-      this.baja = baja;
+    this.hornohuertaServicio.getHornoHuerta(this.id).subscribe(hornohuerta => {
+      this.hornohuerta = hornohuerta;
     });
 
-    this.bajaServicio.getBajas().subscribe(
-      bajas => {
-        this.bajas = bajas;
+    this.hornohuertaServicio.getHornoHuertas().subscribe(
+      hornohuerta => {
+        this.hornoshuertas = hornohuerta;
       }
     )
     this.loginService.getusuarioIdentificado().subscribe( auth => {
@@ -64,17 +60,17 @@ export class EditarBajasComponent {
 
   }
 
-  guardar(bajaForm: NgForm){
-    if(!bajaForm.valid){
+  guardar(hornohuertaForm: NgForm){
+    if(!hornohuertaForm.valid){
       this.toastr.error("Por favor llena el formulario correctamente", "Error")
      return;
     }
     else{
-      bajaForm.value.id = this.id;
+      hornohuertaForm.value.id = this.id;
       //modificar la baja
-      this.bajaServicio.modificarBaja(bajaForm.value);
-      this.router.navigate(['/bajas']);
-      this.toastr.success("Se ha modificado una baja correctamenta", "Éxito");
+      this.hornohuertaServicio.modificarHornoHuerta(hornohuertaForm.value);
+      this.toastr.success("Se ha modificado la asistencia correctamente", "Éxito");
+      this.router.navigate(['/hornohuerta']);
 
     }
   }
@@ -82,14 +78,14 @@ export class EditarBajasComponent {
   eliminar(){
     this.confirmService.showConfirm("Estas seguro que deseas eliminar?",
     () =>{
-      this.bajaServicio.eliminarBaja(this.baja);
-      this.router.navigate(["/bajas"]);
-      this.toastr.success("Se ha eliminado una baja correctamenta", "Éxito");
+      this.hornohuertaServicio.eliminarBaja(this.hornohuerta);
+      this.router.navigate(["/hornohuerta"]);
+      this.toastr.success("Se ha eliminado una Asistencia", "Éxito");
 
     },
     ()=>{
 
-      this.router.navigate(["/baja/editar/:id"]);
+      this.router.navigate(["/hornohuerta/editar/:id"]);
 
     })
 

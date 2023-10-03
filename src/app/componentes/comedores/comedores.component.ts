@@ -68,6 +68,7 @@ buscarPorDni(){
       this.comedoresServicio.agregarComedor(comedorForm.value);
       this.comedorForm.resetForm();
       this.cerrarModal();
+      this.toastr.success("Se ha agregado un Comedor / Merendero correctamente", "Éxito");
 
     }
   }

@@ -63,6 +63,7 @@ export class AsistenciaGeneralComponent implements OnInit{
       this.asistenciaServicio.agregarAsistenciaGral(asistenciagralForm.value);
       this.asistenciagralForm.resetForm();
       this.cerrarModal();
+      this.toastr.success("Se ha agregado una Asistencia", "Éxito");
 
     }
   }

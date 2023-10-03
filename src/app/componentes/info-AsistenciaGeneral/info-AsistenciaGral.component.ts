@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import jsPDF from 'jspdf';
 import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';
 import { AsistenciaGeneralServicio } from 'src/app/servicios/AsistenciaGeneral.service';
@@ -30,7 +29,6 @@ export class InfoAsistenciaGralComponent {
 
   constructor(
     private asistenciagralServicio: AsistenciaGeneralServicio,
-    private flashMessages: FlashMessagesService,
     private router: Router,
     private route: ActivatedRoute
   ) {}

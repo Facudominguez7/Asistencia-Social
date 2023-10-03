@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { NgConfirmService } from 'ng-confirm-box';
 import { ToastrService } from 'ngx-toastr';
 import { AsistenciaGral } from 'src/app/modelo/AsistenciaGeneral.model';

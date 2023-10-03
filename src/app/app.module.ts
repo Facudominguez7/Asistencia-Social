@@ -7,7 +7,6 @@ import {
   SETTINGS,
 } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -83,7 +82,6 @@ import { InfoBajasComponent } from './componentes/info-bajas/info-bajas.componen
     AngularFirestoreModule,
     AngularFireAuthModule,
     FormsModule,
-    FlashMessagesModule.forRoot(),
     AngularFireStorageModule,
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseCodeErrorService } from 'src/app/servicios/firebaseCodeError.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -19,7 +18,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private flashMessages: FlashMessagesService,
     private loginService: LoginService,
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,

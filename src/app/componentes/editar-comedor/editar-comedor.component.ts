@@ -1,7 +1,6 @@
 import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import { ToastrService } from 'ngx-toastr';
 import { Comedor } from 'src/app/modelo/comedor.model';
 import { ComdeorServicio } from 'src/app/servicios/comedor.service';
@@ -106,7 +105,7 @@ export class EditarComedorComponent implements OnInit {
   eliminar(){
     this.confirmService.showConfirm("Estas seguro que deseas eliminar?",
     () =>{
-      
+
       this.comedoresServicio.eliminarComedor(this.comedor);
       this.router.navigate(["/"]);
 

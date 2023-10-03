@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
 import jsPDF from 'jspdf';
 import { Comedor } from 'src/app/modelo/comedor.model';
 import { ComdeorServicio } from 'src/app/servicios/comedor.service';
@@ -35,7 +34,6 @@ export class InsumoComedorComponent implements OnInit{
 
   constructor(
     private comedoresServicio: ComdeorServicio,
-    private flashMessages: FlashMessagesService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
